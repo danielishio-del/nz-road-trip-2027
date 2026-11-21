@@ -210,7 +210,7 @@ const NOTES = [
 /* ================= helpers ================= */
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const $=id=>document.getElementById(id);
-const toTop=()=>{try{scrollTo({top:0,behavior:"smooth"})}catch(e){scrollTo(0,0)}};
+const toTop=()=>{const sc=document.getElementById("bsScroll");try{if(sc)sc.scrollTo({top:0,behavior:"smooth"});scrollTo({top:0,behavior:"smooth"})}catch(e){scrollTo(0,0)}};
 const KINDS=[["","—"],["free","Grátis"],["paid","Pago"],["drive","Estrada"],["sleep","Pernoite"]];
 
 // itens originais em objetos {t,h,d,k,c}
@@ -254,6 +254,7 @@ function renderHero(){
  $("countdown").innerHTML=a+`<span class="pill">🚐 17 noites</span><span class="pill" id="syncPill">📱 Salvo neste aparelho</span>`;
  renderSync();
  const sp=$("syncPill"); if(sp) sp.onclick=openAccount;
+ const tb=$("tbSync"); if(tb) tb.onclick=openAccount;
 }
 
 /* ================= roteiro ================= */
@@ -309,7 +310,7 @@ function showDay(i){
   if(proposal&&proposal.n===o.n) h+=proposalHtml();
   const da=attForDay(o.n);
   if(da.length) h+=`<div class="card"><div class="eyebrow" style="margin-bottom:4px">🎟️ Ingressos e comprovantes do dia</div>${da.map(attRow).join("")}</div>`;
-  h+=dayMapHtml(i);
+  h+=pointsListHtml(i);
   h+=`<div class="card">${timelineHtml(x.items)}</div>`+routeButtons(x);
   // anotações
   h+=`<div class="card notes-card"><div class="eyebrow">📝 Anotações do dia</div>
@@ -329,6 +330,7 @@ function showDay(i){
  }
  $("dayView").innerHTML=h;
  bindDay(); zoomAll($("dayView")); bindAtt($("dayView"));
+ renderPeek(i); renderStage(i);
  renderChips();
 }
 
@@ -399,6 +401,75 @@ function bindEditor(){
   editing=null; showDay(cur); renderResumo(); toast("Dia salvo");
  };
  const r=$("edReset"); if(r) r.onclick=()=>{ setEdit(DAYS[cur].n,{title:null,items:null,stops:null}); editing=null; showDay(cur); renderResumo(); toast("Voltou ao original"); };
+}
+
+/* ================= painel estilo Uber ================= */
+function nextItem(x){
+ const its=x.items.filter(it=>it.k!=="drive"&&it.k!=="sleep"&&it.h);
+ if(DAYS[cur]&&cur===todayIdx){
+  const n=new Date(), mins=n.getHours()*60+n.getMinutes();
+  const f=its.find(it=>{const m=String(it.t).match(/(\d{1,2}):(\d{2})(?:\D+(\d{1,2}):(\d{2}))?/); if(!m) return false; const end=m[3]?(+m[3]*60+ +m[4]):(+m[1]*60+ +m[2]+60); return end>=mins;});
+  return f?{lbl:"Agora / próximo",it:f}:null;
+ }
+ return its[0]?{lbl:"Primeira parada",it:its[0]}:null;
+}
+function renderPeek(i){
+ const el=$("peek"); if(!el) return; const x=eff(i), o=DAYS[i], nx=nextItem(x);
+ const st=[...x.stops,...(x.stops2||[])];
+ const rt=x.stops2?gm(x.stops):(st.length>1?gm(st):gq(st[0]||"New Zealand"));
+ el.innerHTML=`<div class="pk-top"><span class="badge ${o.isl}">Dia ${o.n} · ${o.wd}, ${o.d} fev</span>${x.edited?'<span class="tag paid">editado</span>':""}</div>
+  <h2 class="pk-title">${esc(x.title)}</h2>
+  ${nx?`<div class="pk-next"><span class="pk-dot"></span><div><small>${nx.lbl} · ${esc(nx.it.t)}</small><b>${esc(nx.it.h)}</b></div></div>`:""}
+  <div class="pk-btns"><a class="btn dark" href="${rt}" target="_blank" rel="noopener">${x.stops2?"Rota até o ferry":"Iniciar rota"} ↗</a><button class="btn ghost" id="pkMore">Ver o dia</button></div>`;
+ $("pkMore").onclick=()=>setSheet(sheetState==="full"?"half":"full");
+}
+let sheetState="peek";
+function sheetY(state){ // distância do topo do painel até o topo da tela
+ const H=innerHeight, pk=$("peek"), peekH=(pk?pk.offsetHeight:190)+34+(document.querySelector(".bs-seg")||{offsetHeight:0}).offsetHeight*0;
+ const nav=(document.querySelector("nav.tabs")||{offsetHeight:60}).offsetHeight+22;
+ if(state==="full") return Math.max(70,H*0.08);
+ if(state==="half") return H*0.48;
+ return H-peekH-nav;
+}
+function setSheet(state,instant){
+ sheetState=state; const sh=$("sheet"); if(!sh) return;
+ sh.style.transition=instant?"none":""; sh.style.transform=`translateY(${sheetY(state)}px)`;
+ sh.classList.toggle("is-full",state==="full");
+}
+function initSheet(){
+ const sh=$("sheet"), sc=$("bsScroll"); if(!sh) return;
+ let y0=null,t0=0,base=0,dragging=false,lastY=0,lastT=0,vel=0;
+ const curY=()=>{const m=/translateY\(([-\d.]+)px\)/.exec(sh.style.transform);return m?+m[1]:sheetY(sheetState)};
+ const start=(y)=>{y0=y;base=curY();dragging=false;lastY=y;lastT=performance.now();vel=0};
+ const move=(y,e)=>{
+  if(y0===null) return; const dy=y-y0;
+  if(!dragging){
+   const atTop=sc.scrollTop<=0, fromHandle=e&&e.target&&e.target.closest&&e.target.closest(".bs-handle,#peek .pk-top,.pk-title");
+   if(Math.abs(dy)<6) return;
+   if(fromHandle||sheetState!=="full"||(atTop&&dy>0)) dragging=true; else {y0=null;return}
+   sh.style.transition="none";
+  }
+  e&&e.cancelable&&e.preventDefault();
+  const ny=Math.min(Math.max(base+dy,sheetY("full")-20),innerHeight-80); sh.style.transform=`translateY(${ny}px)`;
+  const now=performance.now(); vel=(y-lastY)/Math.max(now-lastT,1); lastY=y; lastT=now;
+ };
+ const end=()=>{
+  if(y0===null) return; y0=null; if(!dragging) return; dragging=false;
+  const y=curY(), opts=["full","half","peek"].map(s=>[s,sheetY(s)]);
+  let target;
+  if(vel<-0.5) target=opts.filter(o=>o[1]<y-10).pop()||opts[0];
+  else if(vel>0.5) target=opts.find(o=>o[1]>y+10)||opts[2];
+  else target=opts.reduce((a,b)=>Math.abs(b[1]-y)<Math.abs(a[1]-y)?b:a);
+  setSheet(target[0]);
+ };
+ sh.addEventListener("touchstart",e=>{ if(e.target.closest("input,textarea,select,.zctl")) return; start(e.touches[0].clientY)},{passive:true});
+ sh.addEventListener("touchmove",e=>move(e.touches[0].clientY,e),{passive:false});
+ sh.addEventListener("touchend",end); sh.addEventListener("touchcancel",end);
+ const hd=sh.querySelector(".bs-handle");
+ hd.addEventListener("mousedown",e=>{start(e.clientY);const mm=ev=>move(ev.clientY,ev),mu=()=>{end();removeEventListener("mousemove",mm);removeEventListener("mouseup",mu)};addEventListener("mousemove",mm);addEventListener("mouseup",mu)});
+ hd.addEventListener("click",()=>{ if(!dragging) setSheet(sheetState==="peek"?"half":sheetState==="half"?"full":"peek") });
+ addEventListener("resize",()=>{setSheet(sheetState,true);renderStage(cur)});
+ setSheet("peek",true);
 }
 
 /* ================= Claude replaneja ================= */
@@ -542,7 +613,8 @@ function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clear
 /* ================= sincronização ================= */
 let db=null, syncState="local", readOnly=false, pendingRender=false, pendingGeneral=false;
 const SYNC_TXT={local:"📱 Só neste aparelho · entrar",connecting:"☁️ Conectando…",ok:"☁️ Sincronizado",offline:"⚠️ Sem sinal · salvo no aparelho",readonly:"👀 Só leitura"};
-function renderSync(){const p=$("syncPill"); if(p) p.textContent=SYNC_TXT[syncState]||SYNC_TXT.local}
+function renderSync(){const p=$("syncPill"); if(p) p.textContent=SYNC_TXT[syncState]||SYNC_TXT.local;
+ const t=$("tbSync"); if(t){t.textContent=syncState==="ok"?"☁️":syncState==="connecting"?"⏳":syncState==="offline"?"⚠️":"📱"; t.title=SYNC_TXT[syncState]||""}}
 function setSync(s){syncState=s;renderSync()}
 
 function bodyFor(key){
@@ -645,6 +717,8 @@ const VIEWS=["roteiro","mapas","listas","reservas","custos","notas"];
 function go(v){
  if(!VIEWS.includes(v)) v="roteiro";
  document.querySelectorAll(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+ document.body.classList.toggle("roteiro-on",v==="roteiro");
+ if(v==="roteiro") setTimeout(()=>{try{setSheet(sheetState,true);renderStage(cur)}catch(e){}},40);
  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
  try{ if(location.hash.slice(1)!==v) history.replaceState(null,"","#"+v); }catch(e){}
  store.view=v; save();
@@ -743,25 +817,55 @@ function segPaths(lls,{color,op,w,dash=""}){
   +(guess?`<path d="${guess}" fill="none" stroke="${color}" stroke-opacity="${op*.6}" stroke-width="${w}" stroke-dasharray="2 4" vector-effect="non-scaling-stroke"/>`:"")
   +(ferry?`<path d="${ferry}" fill="none" stroke="#2E7FA8" stroke-width="${w}" stroke-dasharray="6 5" vector-effect="non-scaling-stroke"/>`:"");
 }
-function mapSvg(pts,{route=[],click=false,solid=true,minSpan=14,aspect=1.25,rk=0.026}={}){
+function mapSvg(pts,{route=[],click=false,solid=true,minSpan=14,aspect=1.25,rk=0.026,fit=null,ptClick=false}={}){
  const P=pts.filter(p=>p.ll).map(p=>({...p,xy:proj(p.ll[0],p.ll[1])}));
  const extra=solid&&P.length>1?roadSegs(P.map(p=>p.ll)).flatMap(sg=>sg.pts).map(ll=>proj(ll[0],ll[1])):[];
  const all=P.length?[...P.map(p=>p.xy),...extra]:[proj(-41,173)];
  let x0=Math.min(...all.map(a=>a[0])),x1=Math.max(...all.map(a=>a[0])),y0=Math.min(...all.map(a=>a[1])),y1=Math.max(...all.map(a=>a[1]));
  let w=Math.max(x1-x0,minSpan),h=Math.max(y1-y0,minSpan/aspect);
  if(w/h<aspect) w=h*aspect; else h=w/aspect;
- const cx=(x0+x1)/2,cy=(y0+y1)/2; w*=1.3; h*=1.3;
- const vb=[cx-w/2,cy-h/2,w,h], r=w*rk, fs=r*1.15;
+ const cx=(x0+x1)/2,cy=(y0+y1)/2; let vb,r;
+ if(fit){ // encaixa o trajeto na parte visível da tela (entre a barra de cima e o painel de baixo)
+  const bw=Math.max(x1-x0,minSpan*.6), bh=Math.max(y1-y0,minSpan*.45), visH=Math.max(fit.H-fit.top-fit.bottom,120);
+  const s=Math.min((fit.W-56)/bw,(visH-56)/bh);
+  vb=[cx-(fit.W/2)/s, cy-(fit.top+visH/2)/s, fit.W/s, fit.H/s]; r=12/s;
+ } else { w*=1.3; h*=1.3; vb=[cx-w/2,cy-h/2,w,h]; r=w*rk; }
+ const fs=r*1.15;
  const line=a=>a.length>1?`M${a.map(q=>q[0].toFixed(2)+" "+q[1].toFixed(2)).join("L")}`:"";
  const rt=route.map(ll=>proj(ll[0],ll[1]));
- return `<svg class="map-svg" viewBox="${vb.map(v=>v.toFixed(2)).join(" ")}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mapa">
-  <rect x="${vb[0]}" y="${vb[1]}" width="${vb[2]}" height="${vb[3]}" fill="#DCE6E8"/>
+ return `<svg class="map-svg" viewBox="${vb.map(v=>v.toFixed(3)).join(" ")}" preserveAspectRatio="${fit?"xMidYMid meet":"xMidYMid slice"}" role="img" aria-label="Mapa">
+  <rect x="${vb[0]-vb[2]*3}" y="${vb[1]-vb[3]*3}" width="${vb[2]*7}" height="${vb[3]*7}" fill="#DCE6E8"/>
   <path d="${NZ_PATH}" fill="#F1ECE1" stroke="#C9BCA6" stroke-width="1" vector-effect="non-scaling-stroke"/>
   ${segPaths(route,{color:solid?"#7A726A":"#1E1B18",op:solid?.45:.85,w:solid?1.5:2,dash:solid?"4 4":""})}
   ${solid?segPaths(P.map(p=>p.ll),{color:"#1E1B18",op:1,w:2.8}):""}
-  ${P.map((p,j)=>`<g ${click?`class="mk" data-i="${p.di}"`:""}><circle class="mc" data-r0="${r}" cx="${p.xy[0]}" cy="${p.xy[1]}" r="${r}" fill="${p.color||"#B8893E"}" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+  ${P.map((p,j)=>`<g ${click?`class="mk" data-i="${p.di}"`:ptClick?`class="mk" data-pt="${p.num??(j+1)}"`:""}><circle class="mc" data-r0="${r}" cx="${p.xy[0]}" cy="${p.xy[1]}" r="${r}" fill="${p.color||"#B8893E"}" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>
    <text class="mt" data-fs0="${fs}" data-cy="${p.xy[1]}" x="${p.xy[0]}" y="${p.xy[1]+fs*0.36}" font-size="${fs}" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="700">${p.num??(j+1)}</text></g>`).join("")}
  </svg>`;
+}
+function stageFit(){
+ const W=innerWidth,H=innerHeight, top=(($("topbar")||{}).offsetHeight||70)+18, bottom=Math.max(H-sheetY("half"),200);
+ return {W,H,top,bottom};
+}
+function renderStage(i){
+ const st=$("mapStage"); if(!st) return;
+ const pts=dayPts(i); const known=pts.filter(p=>p.ll);
+ const prev=i>0?dayPts(i-1).filter(p=>p.ll).slice(-1):[];
+ let num=0; pts.forEach(p=>{if(p.ll)p.num=++num});
+ st.innerHTML=`<div class="map-wrap stage">${mapSvg(pts.map(p=>({...p})),{route:prev.length&&known.length?[prev[0].ll,known[0].ll]:[],fit:stageFit(),ptClick:true})}</div>`;
+ const w=st.querySelector(".map-wrap"); w._z=false; enableZoom(w);
+ const full=w.querySelector('[data-z="full"]'); if(full) full.remove();
+ w.querySelectorAll(".mk[data-pt]").forEach(g=>g.addEventListener("click",()=>focusPoint(+g.dataset.pt)));
+}
+function focusPoint(n){
+ const el=document.getElementById("pt-"+n); if(!el) return;
+ if(sheetState==="peek") setSheet("half");
+ setTimeout(()=>{const sc=$("bsScroll");sc.scrollTo({top:el.offsetTop-90,behavior:"smooth"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")},260);
+}
+function pointsListHtml(i){
+ const pts=dayPts(i); let num=0; pts.forEach(p=>{if(p.ll)p.num=++num});
+ const miss=pts.length-pts.filter(p=>p.ll).length;
+ return `<div class="card"><div class="eyebrow" style="margin-bottom:4px">📍 Ponto a ponto</div>`+pts.map(p=>`<div class="pt" ${p.ll?`id="pt-${p.num}"`:""}><span class="pt-n ${p.ll?"":"off"}">${p.ll?p.num:"•"}</span><a class="pt-name" href="${gq(p.name)}" target="_blank" rel="noopener">${esc(p.name)}</a><a class="ph" href="${gi(p.name)}" target="_blank" rel="noopener">📷 Fotos</a><a class="pt-go" href="${gq(p.name)}" target="_blank" rel="noopener">Mapa ↗</a></div>`).join("")
+  +(miss?`<p class="small" style="margin-top:6px">• Parada fora do mapa interno; o Google Maps inclui ela na rota.</p>`:"")+`</div>`;
 }
 function dayMapHtml(i){
  const pts=dayPts(i); const known=pts.filter(p=>p.ll);
@@ -1097,7 +1201,7 @@ async function loginGate(){
 
 /* ================= start ================= */
 function safe(f){try{f()}catch(e){console.error(e)}}
-safe(renderHero); safe(renderResumo); safe(renderBook); safe(renderBudget); safe(renderNotes); safe(renderMaps); safe(renderTripMap); safe(renderLists); safe(()=>showDay(cur));
+safe(renderHero); safe(renderResumo); safe(renderBook); safe(renderBudget); safe(renderNotes); safe(renderMaps); safe(renderTripMap); safe(renderLists); safe(initSheet); safe(()=>showDay(cur));
 let startView=""; try{startView=location.hash.slice(1)}catch(e){}
 safe(()=>go(startView||store.view||"roteiro"));
 initSync(); loginGate();

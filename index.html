@@ -237,6 +237,50 @@ nav.tabs button{font-size:10px}
 #syncPill{cursor:pointer}
 .login-hero{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1.1;margin:4px 0 6px}
 .seg.sm button{padding:8px;font-size:12.5px}
+/* ---------- estilo Uber ---------- */
+body.roteiro-on .hero, body.roteiro-on .foot{display:none}
+body.roteiro-on{overflow:hidden;overscroll-behavior:none}
+body.roteiro-on .app{padding:0}
+#mapStage{position:fixed;inset:0;z-index:0;background:#DCE6E8}
+#mapStage .map-wrap.stage{position:absolute;inset:0;border:0;border-radius:0;aspect-ratio:auto}
+#mapStage .map-svg{touch-action:none!important}
+#mapStage .zctl{top:auto;bottom:auto;top:calc(env(safe-area-inset-top,0px) + 150px);right:12px}
+.mk{cursor:pointer}
+.topbar{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:10px;right:10px;max-width:540px;margin:0 auto;z-index:5;background:rgba(255,253,249,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:22px;box-shadow:0 6px 24px rgba(0,0,0,.14);padding:10px 10px 0}
+.tb-row{display:flex;align-items:center;justify-content:space-between;padding:0 6px 8px}
+.tb-title small{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tb-title b{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500;font-size:19px}
+.tb-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:17px;cursor:pointer}
+.topbar .chips{padding:0 0 10px}
+.topbar .chip{width:50px;padding:6px 0;border-radius:14px}
+.topbar .chip .n{font-size:19px}
+.bsheet{position:fixed;left:0;right:0;top:0;height:100vh;height:100dvh;max-width:560px;margin:0 auto;z-index:6;background:var(--bg);border-radius:24px 24px 0 0;box-shadow:0 -10px 34px rgba(0,0,0,.2);transform:translateY(60vh);transition:transform .32s cubic-bezier(.2,.85,.25,1);display:flex;flex-direction:column;will-change:transform}
+.bs-handle{padding:10px 0 6px;display:flex;justify-content:center;cursor:grab;touch-action:none}
+.bs-handle span{width:46px;height:5px;border-radius:3px;background:#CFC6B8}
+.bs-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 16px calc(130px + env(safe-area-inset-bottom,0px) + 10vh)}
+.bsheet:not(.is-full) .bs-scroll{overflow-y:hidden}
+#peek{padding:2px 2px 14px}
+.pk-top{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.pk-title{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500;font-size:25px;line-height:1.15;margin:4px 0 12px}
+.pk-next{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.pk-next small{display:block;font-size:11.5px;color:var(--muted)}
+.pk-next b{font:600 15px Inter}
+.pk-dot{flex:0 0 12px;height:12px;border-radius:50%;background:var(--north);box-shadow:0 0 0 5px var(--north-soft)}
+.pk-btns{display:grid;grid-template-columns:1.5fr 1fr;gap:10px}
+.bs-seg{margin-top:4px}
+.pt.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,100%{background:transparent}20%{background:var(--gold-soft)}}
+body.roteiro-on nav.tabs{z-index:8}
+/* ---------- tipografia de app ---------- */
+h1,h2,h3,.serif,.sec-title,.pk-title,.tb-title b,.login-hero,.big,.ct,.day-head h2,.extra h3,.alert h3,.ai-card h3,.map-card h3,.sum-date .n,.chip .n,.map-card .num{font-family:"Plus Jakarta Sans",Inter,system-ui,sans-serif!important;font-style:normal!important;letter-spacing:-.025em;font-weight:800}
+.pk-title{font-size:24px;font-weight:800}
+.chip .n{font-weight:700}
+.tb-title b{font-size:18px}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px}
+#dayView .day-head h2,#dayView .day-head .date{display:none}
+#dayView .day-head .meta{margin-top:10px}
+#mapStage .zctl{top:calc(env(safe-area-inset-top,0px) + 172px)!important}
+.btn{font-weight:700}
 /* nav */
 nav.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:520px;background:rgba(30,27,24,.94);backdrop-filter:blur(10px);border-radius:999px;display:flex;padding:6px;z-index:10;box-shadow:0 8px 30px rgba(0,0,0,.18)}
 nav.tabs button{flex:1;border:0;background:none;color:#a9a196;font:500 10.5px Inter;padding:8px 0 6px;border-radius:999px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
@@ -256,16 +300,23 @@ nav.tabs button.on{background:var(--bg);color:var(--ink)}
 
   <!-- ROTEIRO -->
   <section class="view on" id="v-roteiro">
-    <div class="seg" id="segRot">
-      <button data-m="dia" class="on">Dia a dia</button>
-      <button data-m="resumo">Resumo rápido</button>
-    </div>
-    <div id="mode-dia">
+    <div id="mapStage"></div>
+    <div class="topbar" id="topbar">
+      <div class="tb-row"><div class="tb-title"><small>NZ Road Trip</small><b>Fevereiro 2027</b></div><button class="tb-btn" id="tbSync" aria-label="Conta e sincronização">📱</button></div>
       <div class="chips" id="chips"></div>
-      <p class="small" style="text-align:center;margin:-6px 0 12px">Deslize para os lados para trocar de dia</p>
-      <div id="dayView"></div>
     </div>
-    <div id="mode-resumo" style="display:none"></div>
+    <div class="bsheet" id="sheet">
+      <div class="bs-handle"><span></span></div>
+      <div class="bs-scroll" id="bsScroll">
+        <div id="peek"></div>
+        <div class="seg bs-seg" id="segRot">
+          <button data-m="dia" class="on">Detalhes do dia</button>
+          <button data-m="resumo">Todos os dias</button>
+        </div>
+        <div id="mode-dia"><div id="dayView"></div></div>
+        <div id="mode-resumo" style="display:none"></div>
+      </div>
+    </div>
   </section>
 
   <!-- MAPAS -->
