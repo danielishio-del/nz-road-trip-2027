@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F6F2EA">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -287,6 +287,53 @@ nav.tabs button{flex:1;border:0;background:none;color:#a9a196;font:500 10.5px In
 nav.tabs button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6}
 nav.tabs button.on{background:var(--bg);color:var(--ink)}
 .foot{text-align:center;color:var(--muted);font-size:11.5px;padding:10px 20px 20px}
+
+/* ================= visual minimalista: branco + traço fino ================= */
+:root{--bg:#FFFFFF;--card:#FFFFFF;--ink:#141414;--muted:#767676;--line:#E6E6E6}
+html,body{background:#fff}
+.card,.extra,.alert,.ai-card,.notes-card,.map-card{background:#fff!important;border:1px solid var(--line)!important;box-shadow:none!important}
+.alert{border-color:#E9C9BF!important}
+.extra .eyebrow,.extra p,.extra a{color:var(--ink)}
+.extra .eyebrow{color:var(--muted)}
+.ai-card .eyebrow{color:var(--muted)}
+.pill,.pill.edited,.mini,.btn.ghost,.ph,.lt,.chip,.tb-btn,.zctl button,.inp,.notes-card textarea,.ai-card textarea{background:#fff!important;border:1px solid var(--line)!important;box-shadow:none!important;color:var(--ink)}
+.pill.dark,.mini.dark{background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important}
+.chip.on,.lt.on{background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important}
+.badge,.badge.north,.badge.south,.badge.home{background:#fff!important;border:1px solid var(--line);color:var(--ink)!important}
+.tag,.tag.free,.tag.paid,.tag.drive{background:#fff!important;border:1px solid var(--line);color:var(--muted)!important;font-weight:600}
+.seg{background:#fff!important;border:1px solid var(--line)}
+.seg button.on{background:var(--ink)!important;color:#fff!important;box-shadow:none!important}
+.topbar{background:rgba(255,255,255,.97)!important;box-shadow:none!important;border:1px solid var(--line)}
+.bsheet{background:#fff!important;box-shadow:none!important;border:1px solid var(--line);border-bottom:0}
+.bs-handle span{background:#D9D9D9}
+nav.tabs{background:#fff!important;border:1px solid var(--line);box-shadow:none!important;backdrop-filter:none}
+nav.tabs button{color:#9A9A9A}
+nav.tabs button.on{background:var(--ink)!important;color:#fff!important}
+.pk-next{background:#fff!important;border:1px solid var(--line)!important}
+.pk-dot{background:var(--ink)!important;box-shadow:none!important;width:9px;height:9px;flex-basis:9px}
+.sum-date,.sum-date.north,.sum-date.south,.sum-date.home{background:#fff!important;border:1px solid var(--line);color:var(--ink)!important}
+.sum-note{background:#fff!important;border:1px solid var(--line);color:var(--ink)!important}
+.pt-n,.stop-n{background:#fff!important;border:1px solid var(--ink);color:var(--ink)!important}
+.pt-n.off{border-color:var(--line);color:var(--muted)!important}
+.ed-item{background:#fff!important}
+.prog{background:#F2F2F2!important}.prog i{background:var(--ink)!important}
+.ck .box{border-color:#CFCFCF}.ck.done .box{background:var(--ink)!important;border-color:var(--ink)!important}
+.ck-links a,.ck .txt a{color:var(--ink)!important;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.bar-list .b i{background:var(--ink)!important;height:4px}
+.th{background:#F5F5F5!important}.th.pdf{background:#fff!important;border:1px solid var(--line);color:var(--ink)!important;font-size:10.5px}
+.map-wrap{background:#EEF1F3!important;border-color:var(--line)!important}
+.sheet-box{background:#fff!important}
+.chip .dot{width:5px;height:5px}
+.ic{width:16px;height:16px;vertical-align:-3px;flex:0 0 auto}
+.ic.sm{width:14px;height:14px;vertical-align:-2px}
+.eyebrow .ic{margin-right:4px}
+.tb-btn{display:grid;place-items:center}.tb-btn .ic{width:18px;height:18px}
+.note .ic-b{flex:0 0 32px;height:32px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.ph,.mini,.pill{display:inline-flex;align-items:center;gap:6px}
+.btn{gap:8px}
+.legend i{border-radius:50%}
+.tl-item.sleep .tl-body h4::before{content:"";display:inline-block;width:15px;height:15px;margin-right:2px;vertical-align:-2px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23141414' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18.5 14.6A7 7 0 0 1 9.4 5.5a7 7 0 1 0 9.1 9.1z'/%3E%3C/svg%3E") no-repeat center/contain}
+h3.ct{font-size:19px}
 </style>
 </head>
 <body>

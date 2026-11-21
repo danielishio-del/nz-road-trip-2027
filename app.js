@@ -50,7 +50,7 @@ const DAYS = [
  items:[
  ["08:30–10:00","Remutaka Hill","1–1,5 h até Wellington.","drive",""],
  ["10:00–12:30","Manhã livre em Wellington","Tempo extra antes do check-in.","",""],
- ["12:30–17:00","Ferry Bluebridge · Wellington → Picton","✅ Reservado. Check-in 12:30, saída 13:30, chegada 17:00 (Flexi Sail, motorhome até 5 m). Bluebridge: 0800 844 844 / +64 4 471 6188.","paid","Reservado"],
+ ["12:30–17:00","Ferry Bluebridge · Wellington → Picton","Reservado. Check-in 12:30, saída 13:30, chegada 17:00 (Flexi Sail, motorhome até 5 m). Bluebridge: 0800 844 844 / +64 4 471 6188.","paid","Reservado"],
  ["17:00–19:30","Pelorus Bridge → Lake Rotoiti","~2 h. Parada em Pelorus Bridge (locação de Hobbit). À noite, píer para ver as enguias longfin ao pôr do sol.","sleep","US$34 / NZ$62,50"]],
  sleep:"DOC Kerr Bay Campsite",cost:"US$34",
  stops:["Henley Lake, Masterton","Interislander Ferry Terminal, Wellington"],
@@ -84,7 +84,7 @@ const DAYS = [
 {n:10,d:18,wd:"Qui",isl:"south",title:"Shotover Jet → Milford Road",
  items:[
  ["09:30–11:30","Shotover Jet","Jet boat em alta velocidade pelo cânion, com giros de 360°.","paid","US$235"],
- ["12:00–15:00","Até Te Anau","~2h45. ⛽ Encher o tanque e fazer compras em Te Anau: não há postos depois dali na Milford Road.","drive",""],
+ ["12:00–15:00","Até Te Anau","~2h45. Encher o tanque e fazer compras em Te Anau: não há postos depois dali na Milford Road.","drive",""],
  ["15:00–17:30","Mirror Lakes e Lake Marian Lower Falls","Trilha fácil de 20 min. Alternativa do roteiro: Key Summit (~2,5 h).","free","Grátis"],
  ["17:30","Cascade Creek","~45 min de Milford Sound.","sleep","US$21 / NZ$37,50"]],
  sleep:"Cascade Creek DOC Campsite",cost:"US$21",
@@ -138,7 +138,7 @@ const DAYS = [
  ["07:45–10:15","Whale Watch Kaikōura","Cachalotes, golfinhos e albatrozes.","paid","US$217"],
  ["10:30–12:30","Até Picton","~2 h.","drive",""],
  ["12:30–18:15","Tarde livre em Picton","Tempo antes do check-in do ferry.","",""],
- ["18:15–22:45","Ferry Bluebridge · Picton → Wellington","✅ Reservado. Check-in 18:15, saída 19:15, chegada 22:45 (Flexi Sail).","paid","Reservado"],
+ ["18:15–22:45","Ferry Bluebridge · Picton → Wellington","Reservado. Check-in 18:15, saída 19:15, chegada 22:45 (Flexi Sail).","paid","Reservado"],
  ["22:45","Pernoite: a definir","O roteiro previa dirigir 3,5–4 h até Taupō/Mangaweka, o que não dá chegando 22:45. Ver o alerta acima.","sleep",""]],
  sleep:"A definir · perto de Wellington",cost:"",
  stops:["Whale Watch Kaikoura","Picton Ferry Terminal"],
@@ -167,8 +167,8 @@ const MAPS = [
 
 const BOOK = [
  {g:"Ferry Cook Strait — prioridade",items:[
-  ["ferry-ida","Ida · Dom 14 fev · ✅ Bluebridge","Wellington → Picton · check-in 12:30, saída 13:30, chegada 17:00 · Flexi Sail"],
-  ["ferry-volta","Volta · Qua 24 fev · ✅ Bluebridge","Picton → Wellington · check-in 18:15, saída 19:15, chegada 22:45 · Flexi Sail"]],
+  ["ferry-ida","Ida · Dom 14 fev · Bluebridge (reservado)","Wellington → Picton · check-in 12:30, saída 13:30, chegada 17:00 · Flexi Sail"],
+  ["ferry-volta","Volta · Qua 24 fev · Bluebridge (reservado)","Picton → Wellington · check-in 18:15, saída 19:15, chegada 22:45 · Flexi Sail"]],
   links:[["Interislander","https://www.interislander.co.nz"],["Bluebridge","https://www.bluebridge.co.nz"]]},
  {g:"Passeios pagos",items:[
   ["hobbiton","Hobbiton Movie Set · 11 fev, 09:30","US$143","https://www.hobbitontours.com"],
@@ -196,16 +196,46 @@ const BOOK = [
 const FREE = [["9 fev","Ahipara / Ninety Mile Beach ou Mangonui Waterfront"],["12 fev","Battiscombe Terrace Carpark, Waitara"],["13 fev","Henley Lake (Masterton) ou Lake Domain Reserve (Featherston)"],["19–20 fev","Warrington Domain, Dunedin (2 noites)"],["23 fev","Jimmy Armers Beach / South Bay, Kaikōura"],["24 fev","Hipapatua / Reid's Farm (Taupō) ou Mangaweka Campground"]];
 
 const NOTES = [
- ["🧭","A programação é intensa em alguns dias. Use os horários como plano, não como obrigação: clima, estradas, pausas e cansaço mudam o ritmo."],
- ["🌊","Confirme as marés de Hot Water Beach e Tongaporutu perto da data. A maré de 17:02 no dia 10 é a previsão anotada no roteiro original."],
- ["🎟️","Confirme operação, duração, restrições de idade/peso, cancelamento e disponibilidade dos passeios pagos."],
- ["🚐","Confirme a acessibilidade do motorhome nos campings e estradas; alguns acessos têm restrições."],
- ["🏕️","Freedom camping: verifique regras locais, sinalização, certificação self-contained, limites de permanência e mudanças antes de estacionar."],
- ["📶","Em áreas remotas o sinal é limitado. Baixe mapas offline antes de sair."],
- ["⛽","Milford Road: abasteça e faça compras em Te Anau. Não há postos depois dali."],
- ["✍️","Ainda faltam: endereço da locadora, horário do voo e número de reserva."]
+ ["compass","A programação é intensa em alguns dias. Use os horários como plano, não como obrigação: clima, estradas, pausas e cansaço mudam o ritmo."],
+ ["wave","Confirme as marés de Hot Water Beach e Tongaporutu perto da data. A maré de 17:02 no dia 10 é a previsão anotada no roteiro original."],
+ ["ticket","Confirme operação, duração, restrições de idade/peso, cancelamento e disponibilidade dos passeios pagos."],
+ ["van","Confirme a acessibilidade do motorhome nos campings e estradas; alguns acessos têm restrições."],
+ ["tent","Freedom camping: verifique regras locais, sinalização, certificação self-contained, limites de permanência e mudanças antes de estacionar."],
+ ["signal","Em áreas remotas o sinal é limitado. Baixe mapas offline antes de sair."],
+ ["fuel","Milford Road: abasteça e faça compras em Te Anau. Não há postos depois dali."],
+ ["pencil","Ainda faltam: endereço da locadora, horário do voo e número de reserva."]
 ];
 
+
+
+/* ================= ícones (traço fino) ================= */
+const IC={
+ pencil:'<path d="M4.5 19.5l3.8-.9L18.6 8.3a1.9 1.9 0 0 0 0-2.7l-.2-.2a1.9 1.9 0 0 0-2.7 0L5.4 15.7z"/><path d="M14.3 6.9l2.8 2.8"/>',
+ note:'<path d="M6.5 3.5h8l3 3v14h-11z"/><path d="M9.5 11h5M9.5 14.5h3.5"/>',
+ ticket:'<path d="M3.5 7.5h17v3a1.5 1.5 0 0 0 0 3v3h-17v-3a1.5 1.5 0 0 0 0-3z"/><path d="M14.5 7.5v9" stroke-dasharray="1.6 2"/>',
+ camera:'<rect x="3.5" y="7" width="17" height="12" rx="2.5"/><circle cx="12" cy="13" r="3.2"/><path d="M8.5 7l1.5-2.3h4L15.5 7"/>',
+ pin:'<path d="M12 20.5s6-5.4 6-10.5a6 6 0 0 0-12 0c0 5.1 6 10.5 6 10.5z"/><circle cx="12" cy="10" r="2.1"/>',
+ moon:'<path d="M18.5 14.6A7 7 0 0 1 9.4 5.5a7 7 0 1 0 9.1 9.1z"/>',
+ sparkle:'<path d="M12 4.5l1.5 4.5 4.5 1.5-4.5 1.5L12 16.5l-1.5-4.5L6 10.5 10.5 9z"/><path d="M18 16v3M16.5 17.5h3"/>',
+ cloud:'<path d="M7.5 18h9.5a3.8 3.8 0 0 0 .4-7.6 5.3 5.3 0 0 0-10.2 1.1A3.3 3.3 0 0 0 7.5 18z"/>',
+ phone:'<rect x="7" y="3.5" width="10" height="17" rx="2.5"/><path d="M11 17.5h2"/>',
+ alert:'<path d="M12 4.5l8.5 15h-17z"/><path d="M12 10v4M12 16.8v.2"/>',
+ clock:'<circle cx="12" cy="12" r="8"/><path d="M12 8v4.2l2.8 1.8"/>',
+ eye:'<path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.4"/>',
+ clip:'<path d="M15.5 7.5l-6.6 6.6a1.9 1.9 0 0 0 2.7 2.7l6.9-6.9a3.8 3.8 0 0 0-5.4-5.4l-6.9 6.9a5.7 5.7 0 0 0 8.1 8.1l5-5"/>',
+ van:'<path d="M3 16V8.5A2.5 2.5 0 0 1 5.5 6H14l4 4h1.5a1.5 1.5 0 0 1 1.5 1.5V16z"/><path d="M14 6v4h4"/><circle cx="7.5" cy="16.5" r="1.7"/><circle cx="16.5" cy="16.5" r="1.7"/>',
+ map:'<path d="M9 4.5 3.5 6.5v13L9 17.5l6 2 5.5-2v-13L15 6.5z"/><path d="M9 4.5v13M15 6.5v13"/>',
+ route:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7.5a3 3 0 0 0 0-6h-7a3 3 0 0 1 0-6H16"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ compass:'<circle cx="12" cy="12" r="8.5"/><path d="M15.2 8.8l-2.1 4.3-4.3 2.1 2.1-4.3z"/>',
+ wave:'<path d="M3 10c2.2 0 2.2-2 4.5-2s2.3 2 4.5 2 2.3-2 4.5-2 2.3 2 4.5 2M3 15.5c2.2 0 2.2-2 4.5-2s2.3 2 4.5 2 2.3-2 4.5-2 2.3 2 4.5 2"/>',
+ tent:'<path d="M3 19.5L12 5l9 14.5z"/><path d="M9 19.5l3-5 3 5"/>',
+ signal:'<path d="M5.5 18.5v-3M10 18.5v-6M14.5 18.5v-9M19 18.5v-12"/>',
+ fuel:'<path d="M5.5 20V5.5A1.5 1.5 0 0 1 7 4h5.5A1.5 1.5 0 0 1 14 5.5V20M4 20h11.5M14 10h2a1.5 1.5 0 0 1 1.5 1.5v4a1.3 1.3 0 0 0 2.5 0V9l-2.2-2.2M7.5 8h4.5"/>',
+ image:'<rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4 3.5"/>',
+ user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/>'
+};
+const ic=(n,c="")=>`<svg class="ic ${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||""}</svg>`;
 
 /* ================= helpers ================= */
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -251,7 +281,7 @@ function renderHero(){
  const days=Math.round(ms/864e5);
  const a=todayIdx>=0?`<span class="pill dark">Hoje é o dia ${DAYS[todayIdx].n}</span>`
    :days>0?`<span class="pill dark">Faltam ${days} dias</span>`:`<span class="pill dark">Boa viagem!</span>`;
- $("countdown").innerHTML=a+`<span class="pill">🚐 17 noites</span><span class="pill" id="syncPill">📱 Salvo neste aparelho</span>`;
+ $("countdown").innerHTML=a+`<span class="pill">${ic("van")} 17 noites</span><span class="pill" id="syncPill"></span>`;
  renderSync();
  const sp=$("syncPill"); if(sp) sp.onclick=openAccount;
  const tb=$("tbSync"); if(tb) tb.onclick=openAccount;
@@ -282,12 +312,12 @@ function timelineHtml(items){
  return `<div class="tl">`+items.map(it=>`
   <div class="tl-item ${it.k==="sleep"?"sleep":""}"><div class="tl-time">${esc(it.t)}</div>
   <div class="tl-body"><h4>${esc(it.h)} ${tag(it.k,it.c)}</h4>${it.d?`<p>${esc(it.d)}</p>`:""}
-  ${(it.k==="free"||it.k==="paid")&&it.h?`<a class="ph" href="${gi(it.h)}" target="_blank" rel="noopener">📷 Ver fotos</a>`:""}</div></div>`).join("")+`</div>`;
+  ${(it.k==="free"||it.k==="paid")&&it.h?`<a class="ph" href="${gi(it.h)}" target="_blank" rel="noopener">${ic("camera")} Ver fotos</a>`:""}</div></div>`).join("")+`</div>`;
 }
 function routeButtons(x){
  if(x.stops2) return `<div class="btn-row" style="margin-bottom:14px"><a class="btn dark" href="${gm(x.stops)}" target="_blank" rel="noopener">Rota até o ferry ↗</a><a class="btn dark" href="${gm(x.stops2)}" target="_blank" rel="noopener">Rota após o ferry ↗</a></div>`;
- if(x.stops.length>1) return `<a class="btn dark" style="margin-bottom:14px" href="${gm(x.stops)}" target="_blank" rel="noopener">🗺️ Abrir rota do dia no Google Maps</a>`;
- if(x.stops.length===1) return `<a class="btn dark" style="margin-bottom:14px" href="${gq(x.stops[0])}" target="_blank" rel="noopener">🗺️ Abrir no Google Maps</a>`;
+ if(x.stops.length>1) return `<a class="btn dark" style="margin-bottom:14px" href="${gm(x.stops)}" target="_blank" rel="noopener">${ic("route")} Abrir rota do dia no Google Maps</a>`;
+ if(x.stops.length===1) return `<a class="btn dark" style="margin-bottom:14px" href="${gq(x.stops[0])}" target="_blank" rel="noopener">${ic("map")} Abrir no Google Maps</a>`;
  return "";
 }
 
@@ -297,11 +327,11 @@ function showDay(i){
  let h=`<div class="card day-head">
    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
     <span class="badge ${o.isl}">${ISL[o.isl]} · Dia ${o.n} de 18</span>
-    ${editing?"":`<button class="mini" id="btnEdit">✏️ Editar</button>`}
+    ${editing?"":`<button class="mini" id="btnEdit">${ic("pencil")} Editar</button>`}
    </div>
    <h2>${esc(x.title)}</h2>
    <div class="date">${o.wd}, ${o.d} de fevereiro de 2027</div>
-   <div class="meta">${o.sleep?`<span class="pill">☾ ${esc(o.sleep)}</span>`:""}${o.cost?`<span class="pill">${o.cost}</span>`:""}${x.edited?`<span class="pill edited">Editado por vocês</span>`:""}</div>
+   <div class="meta">${o.sleep?`<span class="pill">${ic("moon")} ${esc(o.sleep)}</span>`:""}${o.cost?`<span class="pill">${o.cost}</span>`:""}${x.edited?`<span class="pill edited">Editado por vocês</span>`:""}</div>
  </div>`;
  if(o.alert) h+=`<div class="card alert"><div class="eyebrow">Alerta de logística</div><h3>Pernoite do dia 24</h3><p>${o.alert}</p></div>`;
 
@@ -309,15 +339,15 @@ function showDay(i){
  else{
   if(proposal&&proposal.n===o.n) h+=proposalHtml();
   const da=attForDay(o.n);
-  if(da.length) h+=`<div class="card"><div class="eyebrow" style="margin-bottom:4px">🎟️ Ingressos e comprovantes do dia</div>${da.map(attRow).join("")}</div>`;
+  if(da.length) h+=`<div class="card"><div class="eyebrow" style="margin-bottom:4px">${ic("ticket","sm")} Ingressos e comprovantes do dia</div>${da.map(attRow).join("")}</div>`;
   h+=pointsListHtml(i);
   h+=`<div class="card">${timelineHtml(x.items)}</div>`+routeButtons(x);
   // anotações
-  h+=`<div class="card notes-card"><div class="eyebrow">📝 Anotações do dia</div>
+  h+=`<div class="card notes-card"><div class="eyebrow">${ic("note","sm")} Anotações do dia</div>
    <textarea id="dayNotes" rows="3" placeholder="Ex.: reservar mesa, choveu, mudar parada, lembrar protetor...">${esc(x.notes)}</textarea>
    <div class="small" id="notesState">${x.notes?"Salvo":"Salva sozinho enquanto você escreve"}</div></div>`;
   // Claude
-  if(sampleFn) h+=`<div class="card ai-card"><div class="eyebrow">✨ Pedir ao Claude</div>
+  if(sampleFn) h+=`<div class="card ai-card"><div class="eyebrow">${ic("sparkle","sm")} Pedir ao Claude</div>
    <h3>Mudar o plano deste dia</h3>
    <p class="small" style="margin-bottom:10px">Escreva o que mudou e o Claude reorganiza o dia e a rota. Você vê a proposta antes de aplicar.</p>
    <textarea id="aiAsk" rows="2" placeholder="Ex.: está chovendo, troque a trilha por algo coberto para a criança"></textarea>
@@ -476,7 +506,7 @@ function initSheet(){
 let sampleFn=null, aiBusy=false;
 function proposalHtml(){
  const p=proposal;
- return `<div class="card ai-card"><div class="eyebrow">✨ Proposta do Claude</div>
+ return `<div class="card ai-card"><div class="eyebrow">${ic("sparkle","sm")} Proposta do Claude</div>
   <h3>${esc(p.title)}</h3><p style="font-size:13.5px;margin-bottom:8px">${esc(p.resumo)}</p>
   <div class="map-wrap" style="margin:10px 0">${mapSvg(p.stops.map(n=>({name:n,ll:llOf(n,p.places)})))}</div>
   ${timelineHtml(p.items)}
@@ -537,8 +567,8 @@ function renderResumo(){
   if(o.isl!==last){h+=`<div class="island-sep">${ISL[o.isl]}</div>`;last=o.isl}
   const hl=x.items.filter(it=>it.k!=="drive"&&it.k!=="sleep").map(it=>esc(it.h)).join(" · ");
   h+=`<div class="sum-item" data-i="${i}"><div class="sum-date ${o.isl}"><div class="n">${o.d}</div><div class="w">${o.wd}</div></div>
-   <div><h4>${esc(x.title)}${x.edited?' <span class="tag paid">editado</span>':""}</h4><p>${hl}</p><p>☾ ${esc(o.sleep)}${o.cost?" · "+o.cost:""}${o.alert?" · ⚠️ ver pernoite":""}</p>
-   ${x.notes?`<p class="sum-note">📝 ${esc(x.notes)}</p>`:""}</div></div>`;
+   <div><h4>${esc(x.title)}${x.edited?' <span class="tag paid">editado</span>':""}</h4><p>${hl}</p><p>${ic("moon","sm")} ${esc(o.sleep)}${o.cost?" · "+o.cost:""}${o.alert?" · atenção ao pernoite":""}</p>
+   ${x.notes?`<p class="sum-note">${ic("note","sm")} ${esc(x.notes)}</p>`:""}</div></div>`;
  });
  const m=$("mode-resumo");
  m.innerHTML=`<div class="card" style="padding:6px 16px">${h}</div>`;
@@ -559,7 +589,7 @@ function renderMaps(){
   <div class="route">${m.r.map(s=>`<span>${s}</span>`).join("")}</div>
   <span class="btn dark">Abrir rota no Google Maps ↗</span></a>`).join("")
  +`<div class="card"><h3 class="ct" style="margin-bottom:8px">Rotas por dia</h3>`
- +DAYS.map((o,i)=>{const x=eff(i);const st=[...x.stops,...(x.stops2||[])];return `<div class="row"><span>Dia ${o.n} · ${esc(x.title)}${x.edited?" ✏️":""}</span><span><a href="${st.length>1?gm(st):gq(st[0]||"New Zealand")}" target="_blank" rel="noopener" style="color:var(--north)">Abrir ↗</a></span></div>`}).join("")+`</div>`;
+ +DAYS.map((o,i)=>{const x=eff(i);const st=[...x.stops,...(x.stops2||[])];return `<div class="row"><span>Dia ${o.n} · ${esc(x.title)}${x.edited?" · editado":""}</span><span><a href="${st.length>1?gm(st):gq(st[0]||"New Zealand")}" target="_blank" rel="noopener" style="color:var(--north)">Abrir ↗</a></span></div>`}).join("")+`</div>`;
 }
 
 /* ================= reservas ================= */
@@ -568,7 +598,7 @@ function renderBook(){
  const h=attCardHtml()+BOOK.map(g=>`<div class="card"><h3 class="ct">${g.g}</h3>`+g.items.map(it=>{
    total++; const d=!!store.done[it[0]]; if(d) done++;
    const na=attFor(it[0]).length;
-   return `<div class="ck ${d?"done":""}" data-k="${it[0]}"><div class="box"></div><div class="txt"><h4>${it[1]}</h4><p>${it[2]}</p><div class="ck-links">${it[3]?`<a href="${it[3]}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Site ↗</a>`:""}<a href="#" data-attach="${it[0]}">📎 ${na?na+" anexo"+(na>1?"s":""):"Anexar comprovante"}</a></div></div></div>`;
+   return `<div class="ck ${d?"done":""}" data-k="${it[0]}"><div class="box"></div><div class="txt"><h4>${it[1]}</h4><p>${it[2]}</p><div class="ck-links">${it[3]?`<a href="${it[3]}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Site ↗</a>`:""}<a href="#" data-attach="${it[0]}">${ic("clip","sm")} ${na?na+" anexo"+(na>1?"s":""):"Anexar comprovante"}</a></div></div></div>`;
  }).join("")+(g.links?`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">`+g.links.map(l=>`<a class="pill" href="${l[1]}" target="_blank" rel="noopener" style="text-decoration:none">${l[0]} ↗</a>`).join("")+`</div>`:"")+`</div>`).join("")
  +`<div class="card"><h3 class="ct">Freedom camping</h3><p class="small" style="margin-bottom:6px">Sem reserva. Não é garantia de que o pernoite seja permitido: confira regras e sinalização no local.</p>`
  +FREE.map(f=>`<div class="fc"><b>${f[0]}</b> · ${f[1]}</div>`).join("")+`</div>`;
@@ -598,10 +628,10 @@ function renderBudget(){
  <p class="small" style="margin:0 6px 14px">Valores copiados do roteiro-base; os campings somados noite a noite dão US$251–289. Atualize nas páginas oficiais antes de comprar.</p>`;
 }
 function renderNotes(){
- $("notes").innerHTML=`<div class="card notes-card"><div class="eyebrow">📝 Anotações gerais da viagem</div>
+ $("notes").innerHTML=`<div class="card notes-card"><div class="eyebrow">${ic("note","sm")} Anotações gerais da viagem</div>
   <textarea id="genNotes" rows="5" placeholder="Número da reserva do motorhome, endereço da locadora, horário do voo, contatos...">${esc(store.general.text)}</textarea>
   <div class="small" id="genState">Salva sozinho enquanto você escreve</div></div>
-  <div class="card">`+NOTES.map(n=>`<div class="note"><div class="ic">${n[0]}</div><div>${n[1]}</div></div>`).join("")+`</div>`;
+  <div class="card">`+NOTES.map(n=>`<div class="note"><div class="ic-b">${ic(n[0])}</div><div>${n[1]}</div></div>`).join("")+`</div>`;
  const g=$("genNotes"); let t=null;
  g.oninput=()=>{$("genState").textContent="Salvando…";clearTimeout(t);t=setTimeout(()=>{store.general={text:g.value,at:Date.now()};store.dirty.general=true;save();queuePush("general");$("genState").textContent="Salvo"},700)};
  g.onblur=()=>{if(pendingGeneral){pendingGeneral=false;renderNotes()}};
@@ -612,9 +642,10 @@ function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clear
 
 /* ================= sincronização ================= */
 let db=null, syncState="local", readOnly=false, pendingRender=false, pendingGeneral=false;
-const SYNC_TXT={local:"📱 Só neste aparelho · entrar",connecting:"☁️ Conectando…",ok:"☁️ Sincronizado",offline:"⚠️ Sem sinal · salvo no aparelho",readonly:"👀 Só leitura"};
-function renderSync(){const p=$("syncPill"); if(p) p.textContent=SYNC_TXT[syncState]||SYNC_TXT.local;
- const t=$("tbSync"); if(t){t.textContent=syncState==="ok"?"☁️":syncState==="connecting"?"⏳":syncState==="offline"?"⚠️":"📱"; t.title=SYNC_TXT[syncState]||""}}
+const SYNC_TXT={local:"Só neste aparelho · entrar",connecting:"Conectando…",ok:"Sincronizado",offline:"Sem sinal · salvo no aparelho",readonly:"Só leitura"};
+const SYNC_IC={local:"phone",connecting:"clock",ok:"cloud",offline:"alert",readonly:"eye"};
+function renderSync(){const p=$("syncPill"); if(p) p.innerHTML=ic(SYNC_IC[syncState]||"phone")+" "+(SYNC_TXT[syncState]||SYNC_TXT.local);
+ const t=$("tbSync"); if(t){t.innerHTML=ic(SYNC_IC[syncState]||"phone"); t.title=SYNC_TXT[syncState]||""}}
 function setSync(s){syncState=s;renderSync()}
 
 function bodyFor(key){
@@ -834,11 +865,11 @@ function mapSvg(pts,{route=[],click=false,solid=true,minSpan=14,aspect=1.25,rk=0
  const line=a=>a.length>1?`M${a.map(q=>q[0].toFixed(2)+" "+q[1].toFixed(2)).join("L")}`:"";
  const rt=route.map(ll=>proj(ll[0],ll[1]));
  return `<svg class="map-svg" viewBox="${vb.map(v=>v.toFixed(3)).join(" ")}" preserveAspectRatio="${fit?"xMidYMid meet":"xMidYMid slice"}" role="img" aria-label="Mapa">
-  <rect x="${vb[0]-vb[2]*3}" y="${vb[1]-vb[3]*3}" width="${vb[2]*7}" height="${vb[3]*7}" fill="#DCE6E8"/>
-  <path d="${NZ_PATH}" fill="#F1ECE1" stroke="#C9BCA6" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <rect x="${vb[0]-vb[2]*3}" y="${vb[1]-vb[3]*3}" width="${vb[2]*7}" height="${vb[3]*7}" fill="#EEF1F3"/>
+  <path d="${NZ_PATH}" fill="#FFFFFF" stroke="#D3D8DC" stroke-width="1" vector-effect="non-scaling-stroke"/>
   ${segPaths(route,{color:solid?"#7A726A":"#1E1B18",op:solid?.45:.85,w:solid?1.5:2,dash:solid?"4 4":""})}
   ${solid?segPaths(P.map(p=>p.ll),{color:"#1E1B18",op:1,w:2.8}):""}
-  ${P.map((p,j)=>`<g ${click?`class="mk" data-i="${p.di}"`:ptClick?`class="mk" data-pt="${p.num??(j+1)}"`:""}><circle class="mc" data-r0="${r}" cx="${p.xy[0]}" cy="${p.xy[1]}" r="${r}" fill="${p.color||"#B8893E"}" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+  ${P.map((p,j)=>`<g ${click?`class="mk" data-i="${p.di}"`:ptClick?`class="mk" data-pt="${p.num??(j+1)}"`:""}><circle class="mc" data-r0="${r}" cx="${p.xy[0]}" cy="${p.xy[1]}" r="${r}" fill="${p.color||"#141414"}" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>
    <text class="mt" data-fs0="${fs}" data-cy="${p.xy[1]}" x="${p.xy[0]}" y="${p.xy[1]+fs*0.36}" font-size="${fs}" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="700">${p.num??(j+1)}</text></g>`).join("")}
  </svg>`;
 }
@@ -864,7 +895,7 @@ function focusPoint(n){
 function pointsListHtml(i){
  const pts=dayPts(i); let num=0; pts.forEach(p=>{if(p.ll)p.num=++num});
  const miss=pts.length-pts.filter(p=>p.ll).length;
- return `<div class="card"><div class="eyebrow" style="margin-bottom:4px">📍 Ponto a ponto</div>`+pts.map(p=>`<div class="pt" ${p.ll?`id="pt-${p.num}"`:""}><span class="pt-n ${p.ll?"":"off"}">${p.ll?p.num:"•"}</span><a class="pt-name" href="${gq(p.name)}" target="_blank" rel="noopener">${esc(p.name)}</a><a class="ph" href="${gi(p.name)}" target="_blank" rel="noopener">📷 Fotos</a><a class="pt-go" href="${gq(p.name)}" target="_blank" rel="noopener">Mapa ↗</a></div>`).join("")
+ return `<div class="card"><div class="eyebrow" style="margin-bottom:4px">${ic("pin","sm")} Ponto a ponto</div>`+pts.map(p=>`<div class="pt" ${p.ll?`id="pt-${p.num}"`:""}><span class="pt-n ${p.ll?"":"off"}">${p.ll?p.num:"•"}</span><a class="pt-name" href="${gq(p.name)}" target="_blank" rel="noopener">${esc(p.name)}</a><a class="ph" href="${gi(p.name)}" target="_blank" rel="noopener">${ic("camera")} Fotos</a><a class="pt-go" href="${gq(p.name)}" target="_blank" rel="noopener">Mapa ↗</a></div>`).join("")
   +(miss?`<p class="small" style="margin-top:6px">• Parada fora do mapa interno; o Google Maps inclui ela na rota.</p>`:"")+`</div>`;
 }
 function dayMapHtml(i){
@@ -872,13 +903,13 @@ function dayMapHtml(i){
  const prev=i>0?dayPts(i-1).filter(p=>p.ll).slice(-1):[];
  let num=0; pts.forEach(p=>{if(p.ll)p.num=++num});
  const svg=mapSvg(pts.map(p=>({...p})),{route:prev.length&&known.length?[prev[0].ll,known[0].ll]:[]});
- const list=pts.map(p=>`<div class="pt"><span class="pt-n ${p.ll?"":"off"}">${p.ll?p.num:"•"}</span><a class="pt-name" href="${gq(p.name)}" target="_blank" rel="noopener">${esc(p.name)}</a><a class="ph" href="${gi(p.name)}" target="_blank" rel="noopener">📷 Fotos</a><a class="pt-go" href="${gq(p.name)}" target="_blank" rel="noopener">Mapa ↗</a></div>`).join("");
+ const list=pts.map(p=>`<div class="pt"><span class="pt-n ${p.ll?"":"off"}">${p.ll?p.num:"•"}</span><a class="pt-name" href="${gq(p.name)}" target="_blank" rel="noopener">${esc(p.name)}</a><a class="ph" href="${gi(p.name)}" target="_blank" rel="noopener">${ic("camera")} Fotos</a><a class="pt-go" href="${gq(p.name)}" target="_blank" rel="noopener">Mapa ↗</a></div>`).join("");
  const miss=pts.length-known.length;
  return `<div class="card map-day"><div class="map-wrap">${svg}</div>
   <div class="eyebrow" style="margin:14px 0 4px">Ponto a ponto</div>${list}
   ${miss?`<p class="small" style="margin-top:6px">• Parada adicionada à mão que não está no mapa interno. O botão de rota do Google Maps inclui ela.</p>`:""}</div>`;
 }
-const ISL_COLOR={north:"#2F5D50",south:"#2E5A7A",home:"#B8893E"};
+const ISL_COLOR={north:"#2F5D50",south:"#2E5A7A",home:"#141414"};
 function tripMapHtml(){
  const route=[],marks=[];
  DAYS.forEach((o,i)=>{const k=dayPts(i).filter(p=>p.ll);k.forEach(p=>route.push(p.ll));
@@ -1026,16 +1057,16 @@ async function remoteUrl(id){
 }
 function prefetchAtt(){ remoteAtt.forEach(a=>{ if(!urlCache["r:"+a.assetId]) remoteUrl(a.assetId).catch(()=>{}) }); }
 function attRow(a){
- return `<button class="att" data-k="${esc(a.key)}">${thumbHtml(a)}<span class="att-t"><b>${esc(a.title||a.name||"Anexo")}</b><small>${esc(linkLabel(a.link))}${a.remote?"":" · 📱 só neste aparelho"}</small></span><span class="pt-go">Abrir</span></button>`;
+ return `<button class="att" data-k="${esc(a.key)}">${thumbHtml(a)}<span class="att-t"><b>${esc(a.title||a.name||"Anexo")}</b><small>${esc(linkLabel(a.link))}${a.remote?"":" · só neste aparelho"}</small></span><span class="pt-go">Abrir</span></button>`;
 }
 function hydrateThumbs(root){
- (root||document).querySelectorAll("img.th[data-rid]").forEach(async im=>{try{im.src=await remoteUrl(im.dataset.rid)}catch(e){im.replaceWith(Object.assign(document.createElement("span"),{className:"th pdf",textContent:"🖼️"}))}});
+ (root||document).querySelectorAll("img.th[data-rid]").forEach(async im=>{try{im.src=await remoteUrl(im.dataset.rid)}catch(e){im.replaceWith(Object.assign(document.createElement("span"),{className:"th pdf",textContent:"IMG"}))}});
  (root||document).querySelectorAll("img.th[data-lid]").forEach(async im=>{const u=await localUrl(im.dataset.lid).catch(()=>null); if(u) im.src=u; else im.replaceWith(Object.assign(document.createElement("span"),{className:"th pdf",textContent:"?"}))}); }
 function bindAtt(root){ (root||document).querySelectorAll(".att").forEach(b=>b.onclick=()=>openViewer(b.dataset.k)); hydrateThumbs(root); }
 
 function attCardHtml(){
  const list=allAtt();
- return `<div class="card" id="attCard"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h3 class="ct">🎟️ Ingressos e comprovantes</h3><button class="mini dark" data-attach="">+ Anexar</button></div>
+ return `<div class="card" id="attCard"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h3 class="ct">Ingressos e comprovantes</h3><button class="mini dark" data-attach="">+ Anexar</button></div>
   <p class="small" style="margin:4px 0 8px">Foto ou PDF de ingressos, reservas e recibos. Cada um aparece também no dia em que vocês vão usar.</p>
   ${list.length?list.map(attRow).join(""):`<p class="small" style="padding:10px 0">Nada anexado ainda.</p>`}
   ${!db?`<p class="small" style="margin-top:8px">Você não entrou na sua conta: os anexos ficam salvos só neste aparelho. Toque em "Só neste aparelho · entrar" no topo para sincronizar.</p>`:`<p class="small" style="margin-top:8px">Os anexos ficam guardados também no celular, para abrir sem sinal.</p>`}</div>`;
@@ -1113,7 +1144,7 @@ async function openViewer(key){
  const canDel=a.remote?!!assetsApi:true;
  ov.innerHTML=`<div class="v-top"><button class="mini" id="vClose">✕ Fechar</button><b>${esc(a.title)}</b>${src?`<a class="mini" href="${src}" target="_blank" rel="noopener">Abrir ↗</a>`:""}</div>
   <div class="v-body">${!src?`<p class="small" style="color:#fff">Arquivo não encontrado neste aparelho.</p>`:isImg(a.type)?`<img src="${src}" alt="">`:`<div class="pdf-pages" id="pdfPages"><p class="small" style="color:#ddd;text-align:center">Carregando PDF…</p></div>`}</div>
-  <div class="v-bot"><span class="small" style="color:#cfc8bd">${esc(linkLabel(a.link))}</span>${canDel?`<button class="mini danger" id="vDel">Apagar</button>`:""}${!a.remote&&assetsApi&&db?`<button class="mini dark" id="vUp">☁️ Compartilhar</button>`:""}</div>`;
+  <div class="v-bot"><span class="small" style="color:#cfc8bd">${esc(linkLabel(a.link))}</span>${canDel?`<button class="mini danger" id="vDel">Apagar</button>`:""}${!a.remote&&assetsApi&&db?`<button class="mini dark" id="vUp">Compartilhar</button>`:""}</div>`;
  document.body.appendChild(ov); document.body.classList.add("noscroll");
  const close=()=>{ov.remove();document.body.classList.remove("noscroll")};
  $("vClose").onclick=close;
@@ -1131,7 +1162,7 @@ async function openViewer(key){
   try{ const b=await idbGet(a.lid); const up=await assetsApi.upload(b,{type:a.type});
    const {lid,key:_k,remote:_r,...meta}=a; await db.collection("docs").doc().set({title:meta.title,link:meta.link,type:meta.type,name:meta.name||"",size:meta.size||0,at:meta.at||Date.now(),assetId:up.id});
    await idbDel(a.lid); store.attLocal=store.attLocal.filter(x=>x.lid!==a.lid); save(); close(); refreshAtt(); toast("Agora os dois veem este anexo");
-  }catch(e){ upb.disabled=false; upb.textContent="☁️ Compartilhar"; toast("Não deu para enviar."); }
+  }catch(e){ upb.disabled=false; upb.textContent="Compartilhar"; toast("Não deu para enviar."); }
  };
 }
 function refreshAtt(){ safe(renderBook); const a=document.activeElement; if(!editing&&!(a&&$("dayView").contains(a))) safe(()=>showDay(cur)); }
