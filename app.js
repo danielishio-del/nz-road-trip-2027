@@ -4,208 +4,76 @@ const gq = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURICo
 const gi = q => "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q + " New Zealand");
 const gs = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
 const DAYS = [
-{n:1,d:9,wd:"Ter",isl:"north",title:"Auckland → Cape Reinga",
- items:[
- ["09:55–11:30","Chegada e motorhome","Retirada do motorhome certificado como self-contained. Compras de mercado, água e lanches perto da locadora.","",""],
- ["11:30–18:00","Rumo ao norte pela SH1","Cerca de 6–6,5 h por campos verdes, florestas nativas de kauri e estuários em direção à península de Aupōuri.","drive",""],
- ["18:00–19:30","Cape Reinga Lighthouse","Caminhada pavimentada no alto das falésias; o encontro do Mar da Tasmânia com o Pacífico e o pōhutukawa sagrado.","free","Grátis"],
- ["19:30–21:30","Descer ~2 h para o sul","Dormir em Ahipara/Ninety Mile Beach ou Mangonui Waterfront.","sleep","Grátis"]],
- sleep:"Ahipara / Mangonui Waterfront",cost:"Grátis",
- stops:["Auckland Airport","Cape Reinga Lighthouse","Ahipara"]},
-{n:2,d:10,wd:"Qua",isl:"north",title:"Northland → Coromandel",
- items:[
- ["07:30–13:30","Estrada até Coromandel","Cerca de 5,5–6 h incluindo almoço.","drive",""],
- ["13:30–16:00","Mautohe Cathedral Cove","Trilha costeira de ~45 min por trecho pela floresta nativa até a praia e o arco natural. Opção: táxi aquático ida e volta.","free","Grátis ou US$110"],
- ["16:15–18:15","Hot Water Beach","Maré baixa prevista às 17:02; janela para cavar 15:00–19:00. Cavar uma piscina termal na areia junto ao mar.","paid","Pá ~US$5"],
- ["18:30–19:15","DOC Wentworth Valley","~45 min até o camping florestal à beira do rio, perto de Whangamatā.","sleep","US$34 / NZ$62,50"]],
- sleep:"DOC Wentworth Valley Campsite",cost:"US$34",
- stops:["Ahipara","Cathedral Cove Car Park, Hahei","Hot Water Beach","Wentworth Valley Campsite, Whangamata"]},
-{n:3,d:11,wd:"Qui",isl:"north",title:"Hobbiton & Waitomo → Tongariro",
- items:[
- ["07:30–09:15","Até Matamata","~1h45 cruzando a Kaimai Range.","drive",""],
- ["09:30–12:00","Hobbiton Movie Set Tour","Tour guiado de 2,5 h: 44 Hobbit Holes, Bagshot Row e bebida no Green Dragon Inn. Crianças até 10 anos grátis.","paid","US$143"],
- ["12:30–14:00","Almoço e estrada","~1,5 h até Waitomo.","drive",""],
- ["14:30–15:30","Waitomo Glowworm Caves","Passeio de barco em caverna iluminada por glowworms.","paid","US$109"],
- ["15:45–16:25","Ruakuri Bushwalk","40 min por desfiladeiros de calcário, túneis naturais e pontes.","free","Grátis"],
- ["16:30–18:45","SH47 até Tongariro","~2h15. Dormir no DOC Mangahuia Campsite.","sleep","US$21 / NZ$37,50"]],
- sleep:"DOC Mangahuia Campsite",cost:"US$21",
- stops:["Wentworth Valley Campsite, Whangamata","Hobbiton Movie Set","Waitomo Glowworm Caves","Mangahuia Campsite"]},
-{n:4,d:12,wd:"Sex",isl:"north",title:"Vulcões de Tongariro → Three Sisters",
- items:[
- ["08:00–10:30","Mangatepopo → Soda Springs","~10 min até o Mangatepopo Car Park (limite de 4 h de estacionamento). 2–2,5 h ida e volta por boardwalk e antigas lavas, com vista do Ngauruhoe (Mount Doom).","free","Grátis"],
- ["10:45–12:30","Tawhai Falls e Bruce Road","20 min ida e volta até Gollum's Pool; depois subir a Bruce Road até a base da Whakapapa Ski Area. Almoço no motorhome.","free","Grátis"],
- ["13:30–16:45","Oeste até Taranaki","~3 h de estrada até a costa.","drive",""],
- ["17:00–20:15","Three Sisters & Elephant Rock","Tongaporutu: areia preta, cavernas e formações rochosas na maré baixa e no pôr do sol (~20:30).","free","Grátis"],
- ["20:30–21:00","Battiscombe Terrace, Waitara","~30 min de estrada.","sleep","Grátis"]],
- sleep:"Battiscombe Terrace Carpark, Waitara",cost:"Grátis",
- stops:["Mangatepopo Car Park","Tawhai Falls","Whakapapa Ski Area","Three Sisters, Tongaporutu","Battiscombe Terrace, Waitara"]},
-{n:5,d:13,wd:"Sáb",isl:"north",title:"Goblin Forest → Masterton",
- items:[
- ["08:30–10:30","Dawson Falls e Goblin Forest","~45 min de carro + 30 min no Kamahi Loop, entre árvores retorcidas cobertas de musgo.","free","Grátis"],
- ["11:00–16:30","Até Masterton","3,5–4 h com almoço, pela costa e depois pelo vale de Wairarapa.","drive",""],
- ["16:30–20:30","Jantar com o amigo","Em Masterton. Dormir em Henley Lake ou Lake Domain Reserve (Featherston, ~35 min ao sul).","sleep","Grátis"]],
- sleep:"Henley Lake / Featherston",cost:"Grátis",
- stops:["Battiscombe Terrace, Waitara","Dawson Falls Visitor Centre","Masterton","Henley Lake, Masterton"]},
-{n:6,d:14,wd:"Dom",isl:"north",title:"Ferry para a Ilha Sul → Lake Rotoiti",
- items:[
- ["08:30–10:00","Remutaka Hill","1–1,5 h até Wellington.","drive",""],
- ["10:00–12:30","Manhã livre em Wellington","Tempo extra antes do check-in.","",""],
- ["12:30–17:00","Ferry Bluebridge · Wellington → Picton","Reservado. Check-in 12:30, saída 13:30, chegada 17:00 (Flexi Sail, motorhome até 5 m). Bluebridge: 0800 844 844 / +64 4 471 6188.","paid","Reservado"],
- ["17:00–19:30","Pelorus Bridge → Lake Rotoiti","~2 h. Parada em Pelorus Bridge (locação de Hobbit). À noite, píer para ver as enguias longfin ao pôr do sol.","sleep","US$34 / NZ$62,50"]],
- sleep:"DOC Kerr Bay Campsite",cost:"US$34",
- stops:["Henley Lake, Masterton","Interislander Ferry Terminal, Wellington"],
- stops2:["Picton Ferry Terminal","Pelorus Bridge","Kerr Bay Campsite, St Arnaud"]},
-{n:7,d:15,wd:"Seg",isl:"south",title:"Buller Gorge, focas → Punakaiki",
- items:[
- ["08:30–11:45","Buller Gorge","~3 h acompanhando o cânion do rio Buller.","drive",""],
- ["11:45–12:45","Cape Foulwind Seal Colony","Tauranga Bay: caminhada fácil de ~30 min no alto das falésias com focas e farol.","free","Grátis"],
- ["13:00–15:30","Great Coast Road e Pancake Rocks","~45 min de estrada costeira e circuito pavimentado pelas formações calcárias e blowholes.","free","Grátis"],
- ["15:30–16:30","Pororari River Track","~45 min por cânion de floresta tropical, rio turquesa e paredões de calcário.","free","Grátis"]],
- sleep:"DOC Punakaiki Beach Camp",cost:"US$31",
- stops:["Kerr Bay Campsite, St Arnaud","Cape Foulwind Seal Colony","Punakaiki Pancake Rocks","Punakaiki Beach Camp"]},
-{n:8,d:16,wd:"Ter",isl:"south",title:"Hokitika Gorge & Franz Josef",
- items:[
- ["08:00–10:30","Hokitika Gorge","~1h15 de estrada + 30 min de caminhada; ponte suspensa sobre água glacial turquesa.","free","Grátis"],
- ["10:45–13:45","Hokitika → Franz Josef","Placa de driftwood na praia, lojas de greenstone e almoço. ~1,5 h até Franz Josef.","drive",""],
- ["14:00–15:30","Helicóptero + Snow Landing","Voo sobre os Alpes do Sul e pouso na neve/glaciar.","paid","US$513"],
- ["15:45–17:30","Lake Matheson Mirror Walk","~25 min até Fox Glacier; circuito plano de ~45 min buscando reflexos das montanhas.","free","Grátis"],
- ["17:45","Volta ao norte","35 min até o DOC Otto/MacDonald's, Lake Mapourika.","sleep","US$21 / NZ$37,50"]],
- sleep:"DOC Otto/MacDonald's, Lake Mapourika",cost:"US$21",
- stops:["Punakaiki Beach Camp","Hokitika Gorge","Hokitika","Franz Josef","Lake Matheson","Lake Mapourika"]},
-{n:9,d:17,wd:"Qua",isl:"south",title:"Haast Pass, Wānaka → Queenstown",
- items:[
- ["08:00–12:00","Haast Pass Scenic Drive","~3,5 h com paradas: Ship Creek (15 min), Thunder Creek Falls (10 min) e Blue Pools (20 min).","free","Grátis"],
- ["12:30–13:45","Wānaka","Almoço à beira do lago e foto no That Wānaka Tree.","",""],
- ["13:45–15:30","Crown Range e Arrowtown","A estrada principal mais alta da NZ; 20 min pelo centro histórico da corrida do ouro.","free","Grátis"],
- ["15:30","Lakeview Holiday Park","Check-in (powered site) e lavanderia.","sleep","US$43 / NZ$77,50"],
- ["17:00","Skyline Gondola + 3 Luge","5 min a pé do camping. Depois, jantar e passeio junto ao Lake Wakatipu.","paid","US$129"]],
- sleep:"Queenstown Lakeview Holiday Park",cost:"US$43",
- stops:["Lake Mapourika","Ship Creek","Blue Pools Track","That Wanaka Tree","Arrowtown","Queenstown Lakeview Holiday Park"]},
-{n:10,d:18,wd:"Qui",isl:"south",title:"Shotover Jet → Milford Road",
- items:[
- ["09:30–11:30","Shotover Jet","Jet boat em alta velocidade pelo cânion, com giros de 360°.","paid","US$235"],
- ["12:00–15:00","Até Te Anau","~2h45. Encher o tanque e fazer compras em Te Anau: não há postos depois dali na Milford Road.","drive",""],
- ["15:00–17:30","Mirror Lakes e Lake Marian Lower Falls","Trilha fácil de 20 min. Alternativa do roteiro: Key Summit (~2,5 h).","free","Grátis"],
- ["17:30","Cascade Creek","~45 min de Milford Sound.","sleep","US$21 / NZ$37,50"]],
- sleep:"Cascade Creek DOC Campsite",cost:"US$21",
- stops:["Shotover Jet, Queenstown","Te Anau","Mirror Lakes, Fiordland","Lake Marian Track","Cascade Creek Campsite"]},
-{n:11,d:19,wd:"Sex",isl:"south",title:"Milford Sound → Dunedin",
- items:[
- ["08:00–09:00","Milford Road e Homer Tunnel","~45 min passando por Monkey Creek.","drive",""],
- ["09:30–11:30","Milford Sound Nature Cruise","2 h sob falésias, Mitre Peak e cachoeiras; possíveis focas e golfinhos.","paid","US$173"],
- ["11:45–17:15","Até Dunedin","4,5–5 h com almoço em Te Anau. Jantar com o amigo.","drive",""],
- ["Noite","Warrington Domain","Freedom camp junto ao oceano, ~20 min ao norte de Dunedin.","sleep","Grátis"]],
- sleep:"Warrington Domain Freedom Camp",cost:"Grátis",
- stops:["Cascade Creek Campsite","Milford Sound","Te Anau","Dunedin","Warrington Domain"]},
-{n:12,d:20,wd:"Sáb",isl:"south",title:"Dia inteiro em Dunedin",
- items:[
- ["Dia inteiro","Com o amigo em Dunedin","Otago Peninsula (albatrozes-reais e leões-marinhos), Tunnel Beach e seu arco de arenito, Baldwin Street e jantar tranquilo.","free",""],
- ["Noite","Warrington Domain","Segunda noite no mesmo freedom camp.","sleep","Grátis"]],
- sleep:"Warrington Domain (2ª noite)",cost:"Grátis",
- stops:["Warrington Domain","Tunnel Beach","Baldwin Street","Royal Albatross Centre, Taiaroa Head"],
- extra:{t:"Blue Penguins ao entardecer",x:"Se a programação permitir, ver os pequenos pinguins azuis no Pukekura / Taiaroa Head ao entardecer. Verificar calendário, horário de chegada das aves, regras de observação e ingressos. Fora do orçamento original.",l:"https://www.bluepenguins.co.nz",lt:"Site oficial ↗"}},
-{n:13,d:21,wd:"Dom",isl:"south",title:"Moeraki Boulders → Mount Cook",
- items:[
- ["08:30–10:00","Café da manhã com o amigo","","",""],
- ["10:30–11:15","Moeraki Boulders","Grandes pedras esféricas espalhadas pela Koekohe Beach.","free","Grátis"],
- ["11:15–15:30","Waitaki Valley","~3,5 h passando por Elephant Rocks (locação de Nárnia) e Lake Pukaki.","drive",""],
- ["15:30–17:30","Caminhadas em Aoraki","Tasman Glacier Viewpoint ou Kea Point, com vistas da montanha e icebergs.","free","Grátis"],
- ["18:00","White Horse Hill","Campground do DOC.","sleep","US$25 / NZ$45"]],
- sleep:"DOC White Horse Hill Campground",cost:"US$25",
- stops:["Dunedin","Moeraki Boulders","Elephant Rocks, Duntroon","Lake Pukaki","White Horse Hill Campground"],
- extra:{t:"Hooker Valley Track",x:"Alternativa às caminhadas curtas, se trilha, clima e energia da família permitirem: vale com pontes suspensas e lago glacial. Planejar ~3 h e confirmar extensão e condições oficiais perto da viagem. Fora do orçamento original.",l:"https://www.doc.govt.nz",lt:"DOC — informações oficiais ↗"}},
-{n:14,d:22,wd:"Seg",isl:"south",title:"Tekapo Hot Pools → Castle Hill",
- items:[
- ["09:00–11:30","Lake Tekapo","~1h15 de estrada. Church of the Good Shepherd e a margem turquesa.","free","Grátis"],
- ["12:00–14:30","Tekapo Springs Hot Pools","Piscinas termais ao ar livre com vista para o lago.","paid","US$58"],
- ["14:30–17:00","SH72 e Rakaia Gorge","~2 h pelo interior e caminhada pela ponte histórica sobre o desfiladeiro.","free","Grátis"],
- ["17:15–19:30","Kura Tawhiti / Castle Hill","Grandes formações de calcário na luz do fim da tarde.","free","Grátis"],
- ["19:30","Lake Pearson / Moana Rua","15 min de estrada.","sleep","US$21 / NZ$37,50"]],
- sleep:"DOC Lake Pearson / Moana Rua",cost:"US$21",
- stops:["White Horse Hill Campground","Church of the Good Shepherd, Tekapo","Tekapo Springs","Rakaia Gorge Bridge","Castle Hill Conservation Area","Lake Pearson Campsite"]},
-{n:15,d:23,wd:"Ter",isl:"south",title:"Christchurch: kiwi → Kaikōura",
- items:[
- ["08:00–09:15","Até Christchurch","~1h15.","drive",""],
- ["09:30–11:30","Willowbank Wildlife Reserve","Kiwi em recinto escuro, kea e wallabies.","paid","US$65"],
- ["12:00–14:00","Riverside Market e Margaret Mahy Playground","Almoço no mercado e tempo para a criança brincar.","free","Grátis"],
- ["14:00–16:45","Até Kaikōura","~2,5 h pela costa do Pacífico.","drive",""],
- ["16:45–17:45","Point Kean Fur Seal Colony","Calçadão costeiro para ver as focas.","free","Grátis"],
- ["18:00","Jimmy Armers Beach / South Bay","Self-contained freedom camp.","sleep","Grátis"]],
- sleep:"Kaikōura Freedom Camp",cost:"Grátis",
- stops:["Lake Pearson Campsite","Willowbank Wildlife Reserve","Riverside Market Christchurch","Point Kean, Kaikoura","Jimmy Armers Beach, Kaikoura"]},
-{n:16,d:24,wd:"Qua",isl:"south",title:"Whale Watch → Ferry → norte",
- items:[
- ["07:45–10:15","Whale Watch Kaikōura","Cachalotes, golfinhos e albatrozes.","paid","US$217"],
- ["10:30–12:30","Até Picton","~2 h.","drive",""],
- ["12:30–18:15","Tarde livre em Picton","Tempo antes do check-in do ferry.","",""],
- ["18:15–22:45","Ferry Bluebridge · Picton → Wellington","Reservado. Check-in 18:15, saída 19:15, chegada 22:45 (Flexi Sail).","paid","Reservado"],
- ["22:45","Pernoite: a definir","O roteiro previa dirigir 3,5–4 h até Taupō/Mangaweka, o que não dá chegando 22:45. Ver o alerta acima.","sleep",""]],
- sleep:"A definir · perto de Wellington",cost:"",
- stops:["Whale Watch Kaikoura","Picton Ferry Terminal"],
- stops2:["Interislander Ferry Terminal, Wellington","Mangaweka Campground","Reid's Farm, Taupo"],
- alert:"Com o ferry real (saída 19:15, chegada 22:45), a conexão com o Whale Watch ficou tranquila. Mas não dá para dirigir até Taupō depois das 22:45: é preciso dormir perto de Wellington e ajustar o dia 17, que passa a ser Wellington → Auckland (~8 h de estrada)."},
-{n:17,d:25,wd:"Qui",isl:"home",title:"Taupō → Auckland",
- items:[
- ["09:30–13:30","Até Auckland","~3,5 h desde Taupō.","drive",""],
- ["14:00–17:00","Preparar a devolução","Estação de descarte (água cinza/preta), combustível/LPG, lavar o motorhome e arrumar malas.","",""],
- ["Noite","Perto do aeroporto","Ou perto da locadora (endereço ainda não definido).","sleep","US$0–30"]],
- sleep:"Perto do aeroporto",cost:"US$0–30",
- stops:["Reid's Farm, Taupo","Auckland Airport"]},
-{n:18,d:26,wd:"Sex",isl:"home",title:"Devolução e voo para casa",
- items:[
- ["Manhã / tarde","Devolver o motorhome","Reservar ~1 h para inspeção e shuttle até o aeroporto. Embarcar no voo de volta.","",""]],
- sleep:"Voo para casa",cost:"",
- stops:["Auckland Airport"]}
+{"n": 1, "d": 9, "wd": "Ter", "isl": "north", "title": "Auckland → Cape Reinga", "items": [["09:55–11:30", "Chegada e motorhome", "Retirada do motorhome certificado como self-contained. Fazer compras de mercado, água e lanches perto da locadora.", "", ""], ["11:30–18:00", "Rumo ao norte pela SH1", "~6–6,5h passando por campos verdes, florestas de kauri e estuários rumo à península de Aupōuri.", "drive", ""], ["18:00–19:30", "Cape Reinga Lighthouse", "Caminhada pavimentada nas falésias; encontro do Mar da Tasmânia com o Pacífico e o pōhutukawa sagrado.", "free", "Grátis"], ["19:30–21:30", "Descer ~2h para o sul", "Pernoite: Ahipara / Ninety Mile Beach ou Mangonui Waterfront (gratuito, ordem de chegada). Plano B reservável: Ahipara Holiday Park (~NZ$ 50 unpowered).", "sleep", "Grátis"]], "sleep": "Ahipara / Mangonui (grátis) ou Ahipara Holiday Park", "cost": "Grátis · plano B ~NZ$ 50", "stops": ["Auckland Airport", "Cape Reinga Lighthouse", "Ahipara"]},
+{"n": 2, "d": 10, "wd": "Qua", "isl": "north", "title": "Northland → Coromandel", "items": [["07:30–13:30", "Estrada até Coromandel", "~5,5–6h incluindo almoço.", "drive", ""], ["13:30–16:00", "Mautohe Cathedral Cove", "Gratuito pela trilha (~45 min por trecho) ou táxi aquático ida e volta (~US$ 110). Praia e arco natural.", "free", "Grátis ou ~US$ 110"], ["16:15–18:15", "Hot Water Beach", "Cavar piscina termal na areia junto ao mar na maré baixa.", "paid", "Pá ~US$ 5"], ["18:30–19:15", "Até Whangamatā", "~45 min. Pernoite (reservar): Wentworth Valley Campground — camping florestal à beira do rio.", "sleep", "~NZ$ 35–42"]], "sleep": "Wentworth Valley Campground", "cost": "~NZ$ 35–42", "stops": ["Ahipara", "Cathedral Cove Car Park, Hahei", "Hot Water Beach", "Wentworth Valley Campsite, Whangamata"]},
+{"n": 3, "d": 11, "wd": "Qui", "isl": "north", "title": "Coromandel → Waitomo → Tongariro", "items": [["08:00–11:15", "Coromandel → Waitomo", "~3h, passando ao sul de Hamilton, sem parar em Matamata.", "drive", ""], ["11:30–13:00", "Almoço em Waitomo", "Almoço e preparação para as cavernas.", "", ""], ["13:30–14:30", "Waitomo Glowworm Caves", "Passeio de barco em caverna subterrânea iluminada por glowworms.", "paid", "US$ 109"], ["14:45–15:25", "Ruakuri Bushwalk", "Caminhada de 40 min por desfiladeiros de calcário, túneis naturais e pontes.", "free", "Grátis"], ["15:30–17:45", "SH47 até Tongariro", "~2h15. Pernoite (reservar): DOC Mangahuia Campsite.", "sleep", "NZ$ 45"]], "sleep": "DOC Mangahuia Campsite", "cost": "NZ$ 45", "stops": ["Wentworth Valley Campsite, Whangamata", "Waitomo Glowworm Caves", "Mangahuia Campsite"]},
+{"n": 4, "d": 12, "wd": "Sex", "isl": "north", "title": "Tongariro → Three Sisters & Elephant Rock", "items": [["08:00–10:30", "Mangatepopo → Soda Springs", "10 min até Mangatepopo Car Park (atenção ao limite de 4h de estacionamento). Caminhada de 2–2,5h ida e volta com vista do Ngauruhoe (Mount Doom).", "free", "Grátis"], ["10:45–12:30", "Tawhai Falls e Bruce Road", "Trilha de 20 min até Tawhai Falls (Gollum's Pool) e subida pela Bruce Road até a base de Whakapapa para almoço.", "free", "Grátis"], ["13:30–16:45", "Oeste até Taranaki", "~3h até a costa de Taranaki.", "drive", ""], ["17:00–20:15", "Three Sisters & Elephant Rock", "Tongaporutu: areia preta, cavernas e falésias na maré baixa e pôr do sol (~20:30).", "free", "Grátis"], ["20:30–21:00", "Até Waitara", "~30 min. Pernoite: Waitara Marine Park Freedom Camp (gratuito para self-contained, ordem de chegada — substitui Battiscombe Terrace, onde motorhomes self-contained são multados) ou Waitara Holiday Park (~NZ$ 45, reservável).", "sleep", "Grátis"]], "sleep": "Waitara Marine Park (grátis) ou Waitara Holiday Park", "cost": "Grátis · plano B ~NZ$ 45", "stops": ["Mangatepopo Car Park", "Tawhai Falls", "Whakapapa Ski Area", "Three Sisters, Tongaporutu", "Waitara Marine Park"]},
+{"n": 5, "d": 13, "wd": "Sáb", "isl": "north", "title": "Goblin Forest → Masterton", "items": [["08:30–10:30", "Dawson Falls e Goblin Forest", "45 min de carro e caminhada de 30 min no Kamahi Loop por árvores cobertas de musgo.", "free", "Grátis"], ["11:00–16:30", "Até Masterton", "~3,5–4h com almoço, pela costa e pelo vale de Wairarapa.", "drive", ""], ["16:30–20:30", "Jantar com o amigo", "Em Masterton. Pernoite: Henley Lake Freedom Camp (gratuito) ou DOC Holdsworth Campsite (15 min de Masterton, NZ$ 20, reservável no DOC).", "sleep", "Grátis"]], "sleep": "Henley Lake (grátis) ou DOC Holdsworth", "cost": "Grátis · plano B NZ$ 20", "stops": ["Waitara Marine Park", "Dawson Falls Visitor Centre", "Masterton", "Henley Lake, Masterton"]},
+{"n": 6, "d": 14, "wd": "Dom", "isl": "north", "title": "Ferry Wellington–Picton → Lake Rotoiti", "items": [["08:30–10:00", "Remutaka Hill", "~1–1,5h até Wellington.", "drive", ""], ["10:30–15:30", "Ferry Cook Strait", "Interislander ou Bluebridge: travessia de ~3,5h (saída prevista às 12:00, check-in 1h antes).", "paid", "Ver reservas"], ["15:30–18:00", "Pelorus Bridge → Lake Rotoiti", "~2h, parando em Pelorus Bridge (filmagem de O Hobbit). Enguias longfin no píer ao pôr do sol. Pernoite (reservar): DOC Kerr Bay — motorhome de 5m entra sem restrições.", "sleep", "~NZ$ 62–70"]], "sleep": "DOC Kerr Bay Campsite", "cost": "~NZ$ 62–70", "stops": ["Henley Lake, Masterton", "Interislander Ferry Terminal, Wellington"], "stops2": ["Picton Ferry Terminal", "Pelorus Bridge", "Kerr Bay Campsite, St Arnaud"]},
+{"n": 7, "d": 15, "wd": "Seg", "isl": "south", "title": "Buller Gorge, focas → Punakaiki", "items": [["08:30–11:45", "Buller Gorge", "~3h acompanhando o cânion do rio Buller.", "drive", ""], ["11:45–12:45", "Cape Foulwind Seal Colony", "Tauranga Bay: caminhada de ~30 min nas falésias para observar focas e o farol.", "free", "Grátis"], ["13:00–15:30", "Great Coast Road e Pancake Rocks", "~45 min pela costa e circuito pelas formações calcárias e blowholes.", "free", "Grátis"], ["15:30–16:30", "Pororari River Track", "Trilha de ~45 min pelo cânion de floresta tropical e rio turquesa. Pernoite (reservar): Punakaiki Beach Camp.", "sleep", "~NZ$ 65–85"]], "sleep": "Punakaiki Beach Camp", "cost": "~NZ$ 65–85", "stops": ["Kerr Bay Campsite, St Arnaud", "Cape Foulwind Seal Colony", "Punakaiki Pancake Rocks", "Punakaiki Beach Camp"]},
+{"n": 8, "d": 16, "wd": "Ter", "isl": "south", "title": "Hokitika Gorge & Franz Josef", "items": [["08:00–10:30", "Hokitika Gorge", "~1h15 de direção e trilha de 30 min com ponte suspensa sobre água azul-turquesa.", "free", "Grátis"], ["10:45–13:45", "Hokitika → Franz Josef", "Praia com placa de driftwood, lojas de jade (greenstone) e almoço. ~1,5h até Franz Josef.", "drive", ""], ["14:00–15:30", "Helicóptero + Snow Landing", "Voo panorâmico sobre os Alpes do Sul com pouso na neve.", "paid", "US$ 513"], ["15:45–17:30", "Lake Matheson Mirror Walk", "~25 min ao sul até Fox Glacier e ~45 min no circuito plano com reflexos das montanhas.", "free", "Grátis"], ["17:45", "Volta ao norte", "35 min até Lake Mapourika. Pernoite (reservar): DOC Otto/MacDonald's Campsite.", "sleep", "~NZ$ 45–50"]], "sleep": "DOC Otto/MacDonald's, Lake Mapourika", "cost": "~NZ$ 45–50", "stops": ["Punakaiki Beach Camp", "Hokitika Gorge", "Hokitika", "Franz Josef", "Lake Matheson", "Lake Mapourika"]},
+{"n": 9, "d": 17, "wd": "Qua", "isl": "south", "title": "Haast Pass, Wānaka → Queenstown", "items": [["08:00–12:00", "Haast Pass Scenic Drive", "~3,5h com paradas: Ship Creek boardwalk (15 min), Thunder Creek Falls (10 min) e Blue Pools (20 min).", "free", "Grátis"], ["12:30–13:45", "Wānaka", "Almoço à beira do lago e foto na That Wānaka Tree.", "", ""], ["13:45–15:30", "Crown Range e Arrowtown", "A estrada principal de maior altitude da NZ e 20 min pelo centro histórico.", "free", "Grátis"], ["15:30", "Lakeview Holiday Park", "Check-in no camping (powered site) e lavanderia.", "sleep", "~NZ$ 77–90"], ["17:00", "Skyline Gondola + 3 Luge", "Caminhada de 5 min do camping. Depois, passeio no Lake Wakatipu.", "paid", "US$ 129"]], "sleep": "Queenstown Lakeview Holiday Park", "cost": "~NZ$ 77–90", "stops": ["Lake Mapourika", "Ship Creek", "Blue Pools Track", "That Wanaka Tree", "Arrowtown", "Queenstown Lakeview Holiday Park"]},
+{"n": 10, "d": 18, "wd": "Qui", "isl": "south", "title": "Shotover Jet → Milford Road", "items": [["09:30–11:30", "Shotover Jet", "Jet boat em alta velocidade pelo cânion com giros de 360°.", "paid", "US$ 235"], ["12:00–15:00", "Até Te Anau", "Almoço, abastecer e ~2h45 até Te Anau. Encher o tanque e fazer compras em Te Anau (não há postos na Milford Road).", "drive", ""], ["15:00–17:30", "Mirror Lakes e Lake Marian Lower Falls", "Parada em Mirror Lakes e trilha fácil de 20 min até Lower Falls (alternativa: Key Summit, 2,5h).", "free", "Grátis"], ["17:30", "Cascade Creek", "Chegada ao camping, a 45 min de Milford Sound.", "sleep", "NZ$ 45"]], "sleep": "DOC Cascade Creek Campsite", "cost": "NZ$ 45", "stops": ["Shotover Jet, Queenstown", "Te Anau", "Mirror Lakes, Fiordland", "Lake Marian Track", "Cascade Creek Campsite"]},
+{"n": 11, "d": 19, "wd": "Sex", "isl": "south", "title": "Milford Sound → Dunedin", "items": [["08:00–09:00", "Milford Road e Homer Tunnel", "~45 min passando por Monkey Creek.", "drive", ""], ["09:30–11:30", "Milford Sound Nature Cruise", "2h sob falésias, Mitre Peak e cachoeiras; avistamento de focas e golfinhos.", "paid", "US$ 173"], ["11:45–17:30", "Até Dunedin", "~5–5,5h com almoço rápido em Te Anau, chegando para jantar com o amigo.", "drive", ""], ["Noite", "Warrington Domain", "Freedom camp 20 min ao norte de Dunedin junto ao mar — gratuito, ordem de chegada, chegar até 22h.", "sleep", "Grátis"]], "sleep": "Warrington Domain Freedom Camp", "cost": "Grátis", "stops": ["Cascade Creek Campsite", "Milford Sound", "Te Anau", "Dunedin", "Warrington Domain"]},
+{"n": 12, "d": 20, "wd": "Sáb", "isl": "south", "title": "Dia inteiro em Dunedin", "items": [["Dia inteiro", "Com o amigo em Dunedin", "Otago Peninsula (albatrozes-reais e leões-marinhos), Tunnel Beach (arco de arenito), Baldwin Street e jantar tranquilo.", "free", ""], ["Noite", "Warrington Domain", "Segunda noite (gratuito — limite máximo de 2 noites seguidas).", "sleep", "Grátis"]], "sleep": "Warrington Domain (2ª noite)", "cost": "Grátis", "stops": ["Warrington Domain", "Tunnel Beach", "Baldwin Street", "Royal Albatross Centre, Taiaroa Head"], "extra": {"t": "Blue Penguins ao entardecer", "x": "Observação dos pequenos pinguins azuis no Pukekura / Taiaroa Head ao entardecer do dia 20, se o horário permitir. Não incluído no orçamento original.", "l": "https://www.bluepenguins.co.nz", "lt": "Site oficial ↗"}},
+{"n": 13, "d": 21, "wd": "Dom", "isl": "south", "title": "Moeraki Boulders → Mount Cook", "items": [["08:30–10:00", "Café da manhã com o amigo", "", "", ""], ["10:30–11:15", "Moeraki Boulders", "Grandes pedras esféricas na Koekohe Beach.", "free", "Grátis"], ["11:15–15:30", "Waitaki Valley", "~3,5h passando por Elephant Rocks (cenário de Nárnia) e Lake Pukaki.", "drive", ""], ["15:30–17:30", "Caminhadas em Aoraki", "Tasman Glacier Viewpoint ou Kea Point.", "free", "Grátis"], ["18:00", "White Horse Hill", "Chegada ao camping aos pés do Mount Cook (reservar).", "sleep", "NZ$ 50"]], "sleep": "DOC White Horse Hill Campground", "cost": "NZ$ 50", "stops": ["Dunedin", "Moeraki Boulders", "Elephant Rocks, Duntroon", "Lake Pukaki", "White Horse Hill Campground"], "extra": {"t": "Hooker Valley Track", "x": "Alternativa às caminhadas curtas em Mount Cook (~3h), caso as pontes e condições da trilha estejam abertas no site oficial do DOC perto da viagem.", "l": "https://www.doc.govt.nz", "lt": "DOC — informações oficiais ↗"}},
+{"n": 14, "d": 22, "wd": "Seg", "isl": "south", "title": "Tekapo, Rakaia Gorge, Castle Hill → Christchurch", "items": [["08:30–10:30", "Lake Tekapo", "~1h15 desde Mount Cook; Church of the Good Shepherd e margem azul-turquesa.", "free", "Grátis"], ["10:30–12:30", "Tekapo Springs Hot Pools", "Piscinas termais ao ar livre com vista para o lago.", "paid", "US$ 58"], ["12:30–15:15", "SH72 e Rakaia Gorge", "Almoço rápido e rota cênica: ~2h de estrada e caminhada curta pela ponte sobre o desfiladeiro.", "free", "Grátis"], ["15:30–17:00", "Kura Tawhiti / Castle Hill", "Formações gigantes de calcário na luz da tarde.", "free", "Grátis"], ["17:00–18:15", "Até Christchurch", "1h15 direto (a 5 min de Willowbank). Pernoite (reservar): North South Holiday Park (530 Sawyers Arms Rd — non-powered, ~NZ$ 40–45) ou Groynes Caravan Park (219 Johns Rd, ~NZ$ 45 powered).", "sleep", "~NZ$ 40–45"]], "sleep": "North South Holiday Park ou Groynes Caravan Park", "cost": "~NZ$ 40–45", "stops": ["White Horse Hill Campground", "Church of the Good Shepherd, Tekapo", "Tekapo Springs", "Rakaia Gorge Bridge", "Castle Hill Conservation Area", "North South Holiday Park, Christchurch"]},
+{"n": 15, "d": 23, "wd": "Ter", "isl": "south", "title": "Christchurch, Kaikōura → Ferry noturno", "items": [["09:30–11:30", "Willowbank Wildlife Reserve", "Kiwi em recinto noturno, kea e wallabies.", "paid", "US$ 65"], ["11:30–14:15", "Até Kaikōura", "~2h30 pela costa do Pacífico; almoço prático no motorhome.", "drive", ""], ["14:15–15:00", "Point Kean Fur Seal Colony", "Calçadão costeiro para observar focas.", "free", "Grátis"], ["15:30–18:00", "Whale Watch Kaikōura", "Barco da tarde para ver cachalotes, golfinhos e albatrozes (reservar o barco das 15:30).", "paid", "US$ 217"], ["18:15–20:15", "Até Picton", "~2h.", "drive", ""], ["21:00–00:30", "Ferry noturno Picton → Wellington", "Interislander ou Bluebridge, ~3,5h (check-in 1h antes; escolher saída a partir das 21:15).", "paid", "Ver reservas"], ["Madrugada", "Pernoite em Wellington", "Opção 1 (24h, 10 min do porto): Cuba Street Motorhome Park (25 Garrett St — NZ$ 35) • Opção 2 (grátis oficial): Evans Bay Marina Carpark • Opção 3 (late check-in, 30 min ao norte): Paekākāriki Holiday Park ou Wellington Kiwi Holiday Park.", "sleep", "NZ$ 35"]], "sleep": "Cuba Street Motorhome Park / Evans Bay / Paekākāriki", "cost": "~NZ$ 35", "stops": ["North South Holiday Park, Christchurch", "Willowbank Wildlife Reserve", "Point Kean, Kaikoura", "Whale Watch Kaikoura", "Picton Ferry Terminal"], "stops2": ["Interislander Ferry Terminal, Wellington", "Cuba Street Motorhome Park, Wellington"]},
+{"n": 16, "d": 24, "wd": "Qua", "isl": "home", "title": "Wellington → Hobbiton → Matamata", "items": [["07:30–14:30", "Wellington → Matamata", "Pela SH1 passando por Taupō (~6h30 de estrada, com paradas curtas para abastecer e almoçar).", "drive", ""], ["15:00–15:30", "Check-in no The Shire's Rest", "Com folga antes do passeio.", "", ""], ["16:00–18:30", "Hobbiton Movie Set Tour", "Tour guiado de 2,5h: 44 Hobbit Holes, Bagshot Row e bebida no Green Dragon Inn. Crianças até 10 anos grátis.", "paid", "US$ 143"], ["Noite", "Pernoite em Matamata", "Firth Tower Museum Carpark (266A Tower Rd — aberto 24h, NZ$ 10 non-powered / NZ$ 15 powered) ou Brock's Place (277B Buckland Rd, a 5 min de Hobbiton, reservável por ~NZ$ 10/pessoa).", "sleep", "NZ$ 10–15"]], "sleep": "Firth Tower Museum ou Brock's Place", "cost": "NZ$ 10–15", "stops": ["Cuba Street Motorhome Park, Wellington", "Taupo", "Hobbiton Movie Set", "Firth Tower Museum, Matamata"]},
+{"n": 17, "d": 25, "wd": "Qui", "isl": "home", "title": "Matamata → Auckland", "items": [["09:30–11:45", "Até Auckland", "~2h de estrada tranquila.", "drive", ""], ["12:00–17:00", "Preparar a devolução", "Almoço, dump station (água cinza/preta), combustível/LPG, lavar o motorhome e arrumar malas.", "", ""], ["Noite", "Pernoite perto do aeroporto", "Ambury Park Campground (43 Ambury Rd, Māngere Bridge — reservar no Auckland Council, 10–15 min do aeroporto, ~NZ$ 17,50/adulto) ou APark — Airport Park and Ride (57 Pavilion Dr, ~NZ$ 15–20).", "sleep", "~NZ$ 17,50/adulto"]], "sleep": "Ambury Park Campground ou APark", "cost": "~NZ$ 17,50/adulto", "stops": ["Firth Tower Museum, Matamata", "Ambury Park Campground"]},
+{"n": 18, "d": 26, "wd": "Sex", "isl": "home", "title": "Devolução e voo para casa", "items": [["Manhã / tarde", "Devolver o motorhome", "Reservar ~1h para inspeção e shuttle até o aeroporto. Embarcar no voo de volta.", "", ""]], "sleep": "Voo para casa", "cost": "", "stops": ["Auckland Airport"]}
 ];
 
 const MAPS = [
- {t:"Ilha Norte",s:"Auckland a Wellington",r:["Auckland","Cape Reinga","Coromandel","Matamata","Waitomo","Tongariro","Taranaki","Masterton","Wellington"]},
+ {t:"Ilha Norte",s:"Auckland a Wellington",r:["Auckland","Cape Reinga","Coromandel","Waitomo","Tongariro","Taranaki","Masterton","Wellington"],q:["Auckland Airport","Cape Reinga Lighthouse","Hahei","Waitomo Glowworm Caves","Whakapapa Village","Tongaporutu","Masterton","Wellington"]},
  {t:"Ilha Sul",s:"O grande circuito",r:["Picton","Nelson Lakes","West Coast","Queenstown","Fiordland","Dunedin","Mount Cook","Tekapo","Castle Hill","Christchurch","Kaikōura","Picton"],
   q:["Picton","St Arnaud","Punakaiki","Franz Josef","Queenstown","Te Anau","Dunedin","Aoraki Mount Cook Village","Christchurch","Kaikoura","Picton"]},
- {t:"Retorno",s:"De volta a Auckland",r:["Picton","Wellington","Taupō / Mangaweka","Auckland"],q:["Wellington","Mangaweka","Taupo","Auckland Airport"]}
+ {t:"Retorno",s:"De volta a Auckland",r:["Picton","Wellington","Taupō","Matamata","Auckland"],q:["Wellington","Taupo","Matamata","Auckland Airport"]}
 ];
 
 const BOOK = [
- {g:"Ferry Cook Strait — prioridade",items:[
-  ["ferry-ida","Ida · Dom 14 fev · Bluebridge (reservado)","Wellington → Picton · check-in 12:30, saída 13:30, chegada 17:00 · Flexi Sail"],
-  ["ferry-volta","Volta · Qua 24 fev · Bluebridge (reservado)","Picton → Wellington · check-in 18:15, saída 19:15, chegada 22:45 · Flexi Sail"]],
+ {g:"Ferry Cook Strait",items:[
+  ["ferry-ida","14 fev (Dia 6) · Ferry Wellington → Picton","Interislander / Bluebridge · ~12:00 · prioridade crítica"],
+  ["ferry-volta","23 fev (Dia 15) · Ferry noturno Picton → Wellington","Interislander / Bluebridge · ~21:30–22:00 · prioridade crítica"]],
   links:[["Interislander","https://www.interislander.co.nz"],["Bluebridge","https://www.bluebridge.co.nz"]]},
  {g:"Passeios pagos",items:[
-  ["hobbiton","Hobbiton Movie Set · 11 fev, 09:30","US$143","https://www.hobbitontours.com"],
-  ["waitomo","Waitomo Glowworm Caves · 11 fev, 14:30","US$109","https://www.waitomo.com"],
-  ["heli","Franz Josef Helicopter + Snow Landing · 16 fev, 14:00","US$513",gs("Franz Josef glacier helicopter snow landing")],
-  ["skyline","Skyline Gondola + 3 Luge · 17 fev, 17:00","US$129","https://www.skyline.co.nz"],
-  ["shotover","Shotover Jet · 18 fev, 09:30","US$235","https://www.shotoverjet.com"],
-  ["milford","Milford Sound 2-hour Nature Cruise · 19 fev, 09:30","US$173",gs("Milford Sound 2 hour nature cruise")],
-  ["tekapo","Tekapo Springs Hot Pools · 22 fev, 12:00","US$58","https://www.tekaposprings.co.nz"],
-  ["willowbank","Willowbank Wildlife Reserve · 23 fev, 09:30","US$65","https://www.willowbank.co.nz"],
-  ["whale","Whale Watch Kaikōura · 24 fev, 07:45","US$217","https://www.whalewatch.co.nz"]]},
- {g:"Campings com reserva",items:[
-  ["c10","10 fev · Wentworth Valley","Coromandel · DOC"],
-  ["c11","11 fev · Mangahuia","Tongariro · DOC"],
-  ["c14","14 fev · Kerr Bay","Lake Rotoiti / Nelson Lakes · DOC"],
-  ["c15","15 fev · Punakaiki Beach Camp","Reserva direto com o camping"],
-  ["c16","16 fev · Otto / MacDonald's","Lake Mapourika / Franz Josef · DOC"],
-  ["c17","17 fev · Queenstown Lakeview","Reservar powered site"],
-  ["c18","18 fev · Cascade Creek","Milford Road / Fiordland · DOC"],
-  ["c21","21 fev · White Horse Hill","Aoraki / Mount Cook · DOC · prioridade alta"],
-  ["c22","22 fev · Lake Pearson / Moana Rua","Perto de Castle Hill · DOC"]],
+  ["waitomo","11 fev (Dia 3) · Waitomo Glowworm Caves Boat Tour","13:30 · US$ 109 · prioridade alta","https://www.waitomo.com"],
+  ["heli","16 fev (Dia 8) · Franz Josef Glacier Helicopter + Snow Landing","14:00 · US$ 513 · prioridade alta",gs("Franz Josef glacier helicopter snow landing")],
+  ["skyline","17 fev (Dia 9) · Skyline Gondola + 3 Luge Rides","17:00 · US$ 129 · prioridade média","https://www.skyline.co.nz"],
+  ["shotover","18 fev (Dia 10) · Shotover Jet Boat Ride","09:30 · US$ 235 · prioridade alta","https://www.shotoverjet.com"],
+  ["milford","19 fev (Dia 11) · Milford Sound 2-Hour Nature Cruise","09:30 · US$ 173 · prioridade crítica",gs("Milford Sound 2 hour nature cruise")],
+  ["tekapo","22 fev (Dia 14) · Tekapo Springs Hot Pools","10:30 · US$ 58 · prioridade média","https://www.tekaposprings.co.nz"],
+  ["whale","23 fev (Dia 15) · Whale Watch Kaikōura","15:30 · US$ 217 · prioridade crítica","https://www.whalewatch.co.nz"],
+  ["hobbiton","24 fev (Dia 16) · Hobbiton Movie Set Tour","16:00 · US$ 143 · prioridade crítica","https://www.hobbitontours.com"]]},
+ {g:"Campings para reservar",items:[
+  ["c10","10 fev (Dia 2) · Wentworth Valley Campground","Whangamatā · noite · prioridade alta"],
+  ["c11","11 fev (Dia 3) · DOC Mangahuia Campsite","Tongariro · noite · prioridade alta"],
+  ["c14","14 fev (Dia 6) · DOC Kerr Bay Campsite","Lake Rotoiti · noite · prioridade alta"],
+  ["c15","15 fev (Dia 7) · Punakaiki Beach Camp","Noite · prioridade alta"],
+  ["c16","16 fev (Dia 8) · DOC Otto/MacDonald's Campsite","Lake Mapourika · noite · prioridade média"],
+  ["c17","17 fev (Dia 9) · Queenstown Lakeview Holiday Park","Noite · prioridade crítica"],
+  ["c18","18 fev (Dia 10) · DOC Cascade Creek Campsite","Milford Road · noite · prioridade crítica"],
+  ["c21","21 fev (Dia 13) · DOC White Horse Hill Campground","Mount Cook · noite · prioridade crítica"],
+  ["c22","22 fev (Dia 14) · North South Holiday Park","Christchurch · noite · prioridade alta"],
+  ["c23","23 fev (Dia 15) · Camping Wellington (late check-in ou 24h)","Madrugada · prioridade alta"],
+  ["c24","24 fev (Dia 16) · Firth Tower / Brock's Place","Matamata · noite · prioridade média"],
+  ["c25","25 fev (Dia 17) · Ambury Park Campground","Auckland · noite · prioridade alta"]],
   links:[["Portal de reservas DOC","https://bookings.doc.govt.nz"]]}
 ];
 
-const FREE = [["9 fev","Ahipara / Ninety Mile Beach ou Mangonui Waterfront"],["12 fev","Battiscombe Terrace Carpark, Waitara"],["13 fev","Henley Lake (Masterton) ou Lake Domain Reserve (Featherston)"],["19–20 fev","Warrington Domain, Dunedin (2 noites)"],["23 fev","Jimmy Armers Beach / South Bay, Kaikōura"],["24 fev","Hipapatua / Reid's Farm (Taupō) ou Mangaweka Campground"]];
+const FREE = [["9 fev (Dia 1)","Ahipara / Ninety Mile Beach ou Mangonui Waterfront"],["12 fev (Dia 4)","Waitara Marine Park Freedom Camp (self-contained)"],["13 fev (Dia 5)","Henley Lake Freedom Camp, Masterton"],["19–20 fev (Dias 11–12)","Warrington Domain, Dunedin (máx. 2 noites seguidas)"],["23 fev (Dia 15)","Evans Bay Marina Carpark, Wellington (opção grátis)"]];
 
 const NOTES = [
+ ["van","Veículo: motorhome de 5 metros certificado como self-contained (selo verde). Entra sem restrições em todos os campings do guia (incluindo DOC Kerr Bay, que limita veículos acima de 7 m)."],
+ ["check","Ajustes aplicados: Hobbiton no Dia 16 (24 fev às 16:00) com ferry noturno no Dia 15 (23 fev); freedom camp do Dia 4 (Waitara) corrigido para cumprir a lei local; campings econômicos e reserváveis nos trechos finais."],
+ ["signal","Apps offline na estrada: baixe Google Maps offline, CamperMate e Rankers Camping NZ para localizar dump stations, água potável e regras locais."],
  ["compass","A programação é intensa em alguns dias. Use os horários como plano, não como obrigação: clima, estradas, pausas e cansaço mudam o ritmo."],
- ["wave","Confirme as marés de Hot Water Beach e Tongaporutu perto da data. A maré de 17:02 no dia 10 é a previsão anotada no roteiro original."],
+ ["wave","Confirme as marés de Hot Water Beach e Tongaporutu perto da data."],
  ["ticket","Confirme operação, duração, restrições de idade/peso, cancelamento e disponibilidade dos passeios pagos."],
- ["van","Confirme a acessibilidade do motorhome nos campings e estradas; alguns acessos têm restrições."],
- ["tent","Freedom camping: verifique regras locais, sinalização, certificação self-contained, limites de permanência e mudanças antes de estacionar."],
- ["signal","Em áreas remotas o sinal é limitado. Baixe mapas offline antes de sair."],
+ ["tent","Freedom camping: verifique regras locais, sinalização, limites de permanência e mudanças antes de estacionar."],
  ["fuel","Milford Road: abasteça e faça compras em Te Anau. Não há postos depois dali."],
  ["pencil","Ainda faltam: endereço da locadora, horário do voo e número de reserva."]
 ];
-
 
 
 /* ================= ícones (traço fino) ================= */
@@ -613,19 +481,22 @@ function renderBook(){
 
 /* ================= custos & notas ================= */
 function renderBudget(){
+ const rows=[["Passeios e atrações","NZ$ 2.840 – 3.030","US$ 1.647 – 1.757","Valores planejados no roteiro (varia conforme uso do táxi aquático em Cathedral Cove)."],
+  ["Combustível + RUC (diesel)","NZ$ 1.490 – 1.935","US$ 865 – 1.120","~4.600 km totais + taxa obrigatória RUC de NZ$ 76 / 1.000 km."],
+  ["Alimentação e mercado","NZ$ 1.260 – 1.980","US$ 730 – 1.150","Média de NZ$ 70–110/dia (cozinhando no motorhome + lanches e refeições rápidas)."],
+  ["Ferry Cook Strait (ida/volta)","NZ$ 810 – 1.230","US$ 470 – 713","2 travessias (motorhome 5 m + 2 adultos + 1 criança) na alta temporada de fevereiro."],
+  ["Campings (17 noites)","NZ$ 535 – 730","US$ 310 – 422","Mistura de freedom camps gratuitos, campings DOC e holiday parks econômicos."]];
  $("budget").innerHTML=`
- <div class="card"><div class="eyebrow">Total estimado</div><div class="big">US$2.235–2.583</div><p class="small" style="margin-top:6px">Sem motorhome, combustível e mercado.</p></div>
- <div class="card">
-  <div class="row"><span>Campings · 17 noites</span><span>US$238–276</span></div>
-  <div class="row"><span>Passeios e atividades pagos</span><span>US$1.647</span></div>
-  <div class="row"><span class="small">Com táxi aquático em Cathedral Cove</span><span class="small">US$1.757</span></div>
-  <div class="row"><span>Ferry Cook Strait · motorhome ida e volta<br><span class="small">Reservado na Bluebridge: $827,19 no recibo</span></span><span>US$350–550</span></div>
-  <div class="row total"><span>Total</span><span>US$2.235–2.583</span></div>
- </div>
- <div class="card"><h3 class="ct" style="margin-bottom:6px">Passeios, do maior ao menor</h3><div class="bar-list">
- ${[["Helicóptero Franz Josef",513],["Shotover Jet",235],["Whale Watch",217],["Milford Cruise",173],["Hobbiton",143],["Skyline + Luge",129],["Waitomo",109],["Willowbank",65],["Tekapo Springs",58],["Pá Hot Water Beach",5]].map(p=>`<div class="b"><div><span>${p[0]}</span><span>US$${p[1]}</span></div><i style="width:${p[1]/513*100}%"></i></div>`).join("")}
- </div></div>
- <p class="small" style="margin:0 6px 14px">Valores copiados do roteiro-base; os campings somados noite a noite dão US$251–289. Atualize nas páginas oficiais antes de comprar.</p>`;
+ <div class="card"><div class="eyebrow">Total estimado · 18 dias</div><div class="big">NZ$ 6.935 – 8.905</div><p style="margin-top:2px;font-weight:600">US$ 4.022 – 5.162</p><p class="small" style="margin-top:6px">2 adultos + 1 criança, sem passagens aéreas e aluguel do motorhome. Não inclui passeios opcionais extras (Blue Penguins) nem compras/souvenirs. Câmbio de referência: 1 NZD ≈ 0,58 USD.</p></div>
+ <div class="card">${rows.map(r=>`<div class="row" style="flex-direction:column;gap:2px"><div style="display:flex;justify-content:space-between;gap:10px"><span>${r[0]}</span><span>${r[1]}</span></div><div style="display:flex;justify-content:space-between;gap:10px"><span class="small">${r[3]}</span><span class="small" style="white-space:nowrap">${r[2]}</span></div></div>`).join("")}
+  <div class="row total"><span>Total</span><span>NZ$ 6.935 – 8.905</span></div></div>
+ <div class="card"><h3 class="ct" style="margin-bottom:6px">A. Passeios e atrações</h3><div class="bar-list">
+ ${[["Helicóptero Franz Josef (Dia 8)",513],["Shotover Jet (Dia 10)",235],["Whale Watch (Dia 15)",217],["Milford Cruise (Dia 11)",173],["Hobbiton (Dia 16)",143],["Skyline + Luge (Dia 9)",129],["Waitomo (Dia 3)",109],["Willowbank (Dia 15)",65],["Tekapo Springs (Dia 14)",58],["Pá Hot Water Beach (Dia 2)",5]].map(p=>`<div class="b"><div><span>${p[0]}</span><span>US$ ${p[1]}</span></div><i style="width:${p[1]/513*100}%"></i></div>`).join("")}
+ </div><p class="small" style="margin-top:8px">Táxi aquático Cathedral Cove (Dia 2, opcional): US$ 110 (US$ 0 pela trilha). Hobbiton: criança até 10 anos grátis. Demais paradas e caminhadas são gratuitas.</p></div>
+ <div class="card"><h3 class="ct" style="margin-bottom:6px">B. Combustível + RUC</h3><p class="small">Diesel (~4.600 km): consumo médio de 11–13 L/100 km (~505 a 600 litros a NZ$ 2,25–2,65/L) = NZ$ 1.140 – 1.585. RUC (Road User Charges): taxa governamental obrigatória para veículos a diesel, cobrada pela locadora na devolução (NZ$ 76 a cada 1.000 km); para 4.600 km, reserve cerca de NZ$ 350.</p></div>
+ <div class="card"><h3 class="ct" style="margin-bottom:6px">C. Ferry Cook Strait</h3><p class="small">Duas travessias (Dia 6 Wellington → Picton e Dia 15 Picton → Wellington) para veículo de até 5,5 m + 2 adultos + 1 criança em fevereiro. Bluebridge: ~NZ$ 405 por trecho (~NZ$ 810 ida e volta). Interislander: ~NZ$ 570–615 por trecho (~NZ$ 1.140–1.230 ida e volta).</p></div>
+ <div class="card"><h3 class="ct" style="margin-bottom:6px">D. Campings · 17 noites</h3><p class="small">5 noites gratuitas (Dias 1, 4, 5, 11 e 12): NZ$ 0 (ou até NZ$ 115 com os planos B pagos nos Dias 1, 4 e 5). 5 noites em campings DOC (Dias 3, 6, 8, 10 e 13): ~NZ$ 255. 7 noites em campings municipais/privados econômicos (Dias 2, 7, 9, 14, 15, 16 e 17): ~NZ$ 280 – 360.</p></div>
+ <div class="card"><h3 class="ct" style="margin-bottom:6px">E. Alimentação, gás e despesas gerais</h3><p class="small">Supermercado e refeições: NZ$ 70 a 110/dia (redes econômicas como Pak'nSave e Woolworths), considerando dois jantares na casa de amigos (Masterton no Dia 5 e Dunedin no Dia 11). Gás LPG e lavanderia: reserve cerca de NZ$ 40 – 60 no total.</p></div>`;
 }
 function renderNotes(){
  $("notes").innerHTML=`<div class="card notes-card"><div class="eyebrow">${ic("note","sm")} Anotações gerais da viagem</div>
@@ -829,7 +700,7 @@ const LL={"Auckland Airport":[-37.008,174.785],"Cape Reinga Lighthouse":[-34.426
 "Tekapo Springs":[-44.01,170.47],"Rakaia Gorge Bridge":[-43.52,171.66],"Castle Hill Conservation Area":[-43.23,171.72],"Lake Pearson Campsite":[-43.10,171.78],
 "Willowbank Wildlife Reserve":[-43.47,172.60],"Riverside Market Christchurch":[-43.53,172.635],"Point Kean, Kaikoura":[-42.42,173.71],
 "Jimmy Armers Beach, Kaikoura":[-42.43,173.68],"Whale Watch Kaikoura":[-42.41,173.68],"Mangaweka Campground":[-39.81,175.79],"Reid's Farm, Taupo":[-38.66,176.08],
-"Picton":[-41.29,174.006],"St Arnaud":[-41.80,172.85],"Punakaiki":[-42.11,171.33],"Queenstown":[-45.03,168.66],"Aoraki Mount Cook Village":[-43.73,170.10],
+"Picton":[-41.29,174.006],"Waitara Marine Park":[-38.994,174.236],"North South Holiday Park, Christchurch":[-43.476,172.578],"Cuba Street Motorhome Park, Wellington":[-41.297,174.776],"Firth Tower Museum, Matamata":[-37.807,175.784],"Ambury Park Campground":[-36.94,174.767],"Matamata":[-37.81,175.77],"Hahei":[-36.84,175.80],"Whakapapa Village":[-39.20,175.54],"Tongaporutu":[-38.81,174.59],"St Arnaud":[-41.80,172.85],"Punakaiki":[-42.11,171.33],"Queenstown":[-45.03,168.66],"Aoraki Mount Cook Village":[-43.73,170.10],
 "Christchurch":[-43.53,172.63],"Kaikoura":[-42.40,173.68],"Wellington":[-41.28,174.78],"Mangaweka":[-39.81,175.79],"Taupo":[-38.69,176.07]};
 function llOf(name,places){
  const s=String(name||"").trim().toLowerCase(); if(!s) return null;
@@ -921,7 +792,7 @@ function tripMapHtml(){
 function renderTripMap(){
  const el=$("tripMap"); if(!el) return;
  el.innerHTML=`<div class="map-wrap tall">${tripMapHtml()}</div>
-  <div class="legend"><span><i style="background:#2F5D50"></i>Ilha Norte</span><span><i style="background:#2E5A7A"></i>Ilha Sul</span><span><i style="background:#B8893E"></i>Retorno</span></div>
+  <div class="legend"><span><i style="background:#2F5D50"></i>Ilha Norte</span><span><i style="background:#2E5A7A"></i>Ilha Sul</span><span><i style="background:#141414"></i>Retorno</span></div>
   <p class="small" style="text-align:center;margin-top:4px">Números = onde vocês dormem em cada dia. Toque para abrir o dia. Use dois dedos ou + / − para dar zoom.</p>`;
  zoomAll(el);
  el.querySelectorAll(".mk").forEach(g=>g.onclick=()=>{go("roteiro");setMode("dia");showDay(+g.dataset.i);toTop()});
@@ -1027,8 +898,8 @@ function pushOrder(){ store.listOrderAt=Date.now(); store.dirty.listorder=true; 
 
 
 /* ================= anexos: ingressos e comprovantes ================= */
-const LINK_DAY={"ferry-ida":6,"ferry-volta":16,hobbiton:3,waitomo:3,heli:8,skyline:9,shotover:10,milford:11,tekapo:14,willowbank:15,whale:16,
- c10:2,c11:3,c14:6,c15:7,c16:8,c17:9,c18:10,c21:13,c22:14};
+const LINK_DAY={"ferry-ida":6,"ferry-volta":15,waitomo:3,heli:8,skyline:9,shotover:10,milford:11,tekapo:14,whale:15,hobbiton:16,
+ c10:2,c11:3,c14:6,c15:7,c16:8,c17:9,c18:10,c21:13,c22:14,c23:15,c24:16,c25:17};
 const BOOK_NAME={}; BOOK.forEach(g=>g.items.forEach(it=>BOOK_NAME[it[0]]=it[1]));
 let assetsApi=null, remoteAtt=[]; // remoteAtt: [{rid,title,link,assetId,type,name,size,at}]
 store.attLocal=store.attLocal||[]; // [{lid,title,link,type,name,size,at}] blob em IndexedDB
