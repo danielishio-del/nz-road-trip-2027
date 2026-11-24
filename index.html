@@ -334,6 +334,20 @@ nav.tabs button.on{background:var(--ink)!important;color:#fff!important}
 .legend i{border-radius:50%}
 .tl-item.sleep .tl-body h4::before{content:"";display:inline-block;width:15px;height:15px;margin-right:2px;vertical-align:-2px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23141414' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18.5 14.6A7 7 0 0 1 9.4 5.5a7 7 0 1 0 9.1 9.1z'/%3E%3C/svg%3E") no-repeat center/contain}
 h3.ct{font-size:19px}
+.st-nums{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;margin-bottom:12px}
+.st-nums b{display:block;font-family:"Plus Jakarta Sans",Inter,sans-serif;font-weight:800;font-size:28px;letter-spacing:-.03em}
+.st-nums small{font-size:12px;color:var(--muted)}
+.st-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.st-row:last-child{border-bottom:0}
+.st-day{flex:0 0 52px;font-size:12px;color:var(--muted);font-weight:600}
+.st-name{flex:1;min-width:0}
+.st{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 10px;font:600 11.5px Inter;white-space:nowrap;border:1px solid var(--line)}
+.st.ok{background:var(--ink);color:#fff;border-color:var(--ink)}
+.st.todo{background:#fff;color:var(--ink);border-style:dashed;border-color:#9A9A9A}
+.st-done{margin-top:10px}
+.st-done summary{cursor:pointer;font-size:13px;font-weight:600;padding:8px 0;color:var(--muted)}
+.day-st{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 12px}
+.chip .dot.pend{background:#fff!important;border:1px solid var(--ink);width:7px;height:7px}
 </style>
 </head>
 <body>
@@ -384,11 +398,8 @@ h3.ct{font-size:19px}
   <!-- RESERVAS -->
   <section class="view" id="v-reservas">
     <h2 class="sec-title">Reservas</h2>
-    <p class="sec-sub">Toque para marcar o que já está reservado. Fica salvo neste aparelho.</p>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 class="ct">Progresso</h3><span class="small" id="progTxt"></span></div>
-      <div class="prog"><i id="progBar"></i></div>
-    </div>
+    <p class="sec-sub">O que já está pago e o que falta. Toque num item da lista abaixo para marcar como pago; sincroniza entre vocês.</p>
+    <div style="display:none"><span id="progTxt"></span><i id="progBar"></i></div>
     <div id="bookings"></div>
   </section>
 

@@ -158,7 +158,7 @@ function renderChips(){
  $("chips").innerHTML=DAYS.map((x,i)=>{const e=eff(i);return `
   <div class="chip ${x.isl} ${i===cur?"on":""} ${i===todayIdx?"today":""}" data-i="${i}">
    <div class="d">Dia ${x.n}</div><div class="n">${x.d}</div><div class="w">${x.wd}</div>
-   <div class="dot ${e.edited||e.notes?"mark":""}"></div></div>`}).join("");
+   <div class="dot ${e.edited||e.notes?"mark":""} ${bookAll().some(b=>b.day===x.n&&!b.done)?"pend":""}"></div></div>`}).join("");
  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{if(editing&&!confirmLeave())return;showDay(+c.dataset.i)});
  const on=document.querySelector(".chip.on"),box=$("chips");
  if(on&&box){try{box.scrollTo({left:on.offsetLeft-box.clientWidth/2+on.clientWidth/2,behavior:"smooth"})}catch(e){box.scrollLeft=on.offsetLeft-box.clientWidth/2}}
@@ -314,6 +314,7 @@ function renderPeek(i){
  const rt=x.stops2?gm(x.stops):(st.length>1?gm(st):gq(st[0]||"New Zealand"));
  el.innerHTML=`<div class="pk-top"><span class="badge ${o.isl}">Dia ${o.n} · ${o.wd}, ${o.d} fev</span>${x.edited?'<span class="tag paid">editado</span>':""}</div>
   <h2 class="pk-title">${esc(x.title)}</h2>
+  ${dayStatusHtml(o.n)}
   ${nx?`<div class="pk-next"><span class="pk-dot"></span><div><small>${nx.lbl} · ${esc(nx.it.t)}</small><b>${esc(nx.it.h)}</b></div></div>`:""}
   <div class="pk-btns"><a class="btn dark" href="${rt}" target="_blank" rel="noopener">${x.stops2?"Rota até o ferry":"Iniciar rota"} ↗</a><button class="btn ghost" id="pkMore">Ver o dia</button></div>`;
  $("pkMore").onclick=()=>setSheet(sheetState==="full"?"half":"full");
@@ -458,9 +459,32 @@ function renderMaps(){
 }
 
 /* ================= reservas ================= */
+
+/* ================= status das reservas ================= */
+function bookAll(){ const out=[]; BOOK.forEach((g,gi)=>g.items.forEach(it=>{
+ const onsite=/no local/i.test(g.g), buy=/comprar/i.test(it[2]);
+ out.push({id:it[0],name:it[1],info:it[2],url:it[3],day:LINK_DAY[it[0]]||0,done:!!store.done[it[0]],kind:onsite?"No local":buy?"Comprar":"Reservar"});
+})); return out; }
+function stTag(b){ return b.done?`<span class="st ok">${ic("check","sm")} Pago</span>`:`<span class="st todo">${b.kind}</span>`; }
+function statusHtml(){
+ const all=bookAll(), done=all.filter(b=>b.done), todo=all.filter(b=>!b.done).sort((a,b)=>a.day-b.day);
+ const short=n=>esc(n.replace(/^[^·]*·\s*/,""));
+ return `<div class="card status-card">
+  <div class="st-nums"><div><b>${done.length}</b><small>pagos</small></div><div><b>${todo.length}</b><small>faltam</small></div><div><b>${Math.round(done.length/all.length*100)}%</b><small>pronto</small></div></div>
+  <div class="prog"><i style="width:${done.length/all.length*100}%"></i></div>
+  ${todo.length?`<div class="eyebrow" style="margin:14px 0 2px">Falta</div>${todo.map(b=>`<div class="st-row"><span class="st-day">${b.day?"Dia "+b.day:"—"}</span><span class="st-name">${short(b.name)}</span>${stTag(b)}</div>`).join("")}`:`<p style="margin-top:12px;font-weight:600">Tudo reservado.</p>`}
+  <details class="st-done"><summary>Ver os ${done.length} já pagos</summary>${done.sort((a,b)=>a.day-b.day).map(b=>`<div class="st-row"><span class="st-day">${b.day?"Dia "+b.day:"—"}</span><span class="st-name">${short(b.name)}</span>${stTag(b)}</div>`).join("")}</details>
+ </div>`;
+}
+function dayStatusHtml(n){
+ const bs=bookAll().filter(b=>b.day===n); if(!bs.length) return "";
+ return `<div class="day-st">${bs.map(b=>`<span class="st ${b.done?"ok":"todo"}">${b.done?ic("check","sm"):""} ${short2(b.name)}${b.done?"":" · "+b.kind.toLowerCase()}</span>`).join("")}</div>`;
+}
+function short2(n){ return esc(n.replace(/^[^·]*·\s*/,"").replace(/\s*\(.*?\)\s*/g," ").trim()); }
+
 function renderBook(){
  let total=0,done=0;
- const h=attCardHtml()+BOOK.map(g=>`<div class="card"><h3 class="ct">${g.g}</h3>`+g.items.map(it=>{
+ const h=statusHtml()+attCardHtml()+BOOK.map(g=>`<div class="card"><h3 class="ct">${g.g}</h3>`+g.items.map(it=>{
    total++; const d=!!store.done[it[0]]; if(d) done++;
    const na=attFor(it[0]).length;
    return `<div class="ck ${d?"done":""}" data-k="${it[0]}"><div class="box"></div><div class="txt"><h4>${it[1]}</h4><p>${it[2]}</p><div class="ck-links">${it[3]?`<a href="${it[3]}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Site ↗</a>`:""}<a href="#" data-attach="${it[0]}">${ic("clip","sm")} ${na?na+" anexo"+(na>1?"s":""):"Anexar comprovante"}</a></div></div></div>`;
@@ -472,7 +496,7 @@ function renderBook(){
  $("progBar").style.width=(done/total*100)+"%";
  bindAtt($("bookings"));
  document.querySelectorAll(".ck:not(.li)").forEach(c=>c.onclick=e=>{ if(e.target.closest("a")) return;
-  store.done[c.dataset.k]=!store.done[c.dataset.k]; store.doneAt=Date.now(); store.dirty.bookings=true; save(); renderBook(); queuePush("bookings");
+  store.done[c.dataset.k]=!store.done[c.dataset.k]; store.doneAt=Date.now(); store.dirty.bookings=true; save(); renderBook(); queuePush("bookings"); safe(()=>renderPeek(cur)); safe(renderChips);
  });
 }
 
@@ -575,7 +599,7 @@ async function initSync(){
  },e=>{ clearTimeout(timer); setSync("offline"); });
  db.doc("meta/bookings").onSnapshot(doc=>{
   if(!doc.exists) return; const v=doc.data();
-  if((+v.at||0)>store.doneAt&&v.done&&typeof v.done==="object"){ store.done={...v.done}; store.doneAt=+v.at; delete store.dirty.bookings; save(); renderBook(); }
+  if((+v.at||0)>store.doneAt&&v.done&&typeof v.done==="object"){ store.done={...v.done}; store.doneAt=+v.at; delete store.dirty.bookings; save(); renderBook(); safe(()=>renderPeek(cur)); safe(renderChips); }
  },()=>{});
  db.doc("meta/general").onSnapshot(doc=>{
   if(!doc.exists) return; const v=doc.data();
